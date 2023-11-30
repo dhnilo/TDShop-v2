@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TD Shop</title>
+    <link href="css/index.css" rel="stylesheet">
+    <script src="products.js" type="module"></script>
+    <script src="index.js" type="module"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
+                    Shop</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="nav-align" id="navbarSupportedContent">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    <div class="dropdown" style="float:right;">
+                        <button class="btn btn-light" id="dropdown-button">USER</button>
+                        <div class="dropdown-content" id="dropdown-content">
+                            <a href="#">Profile Tab</a>
+                            <a href="#">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="products">
+        </section>
+    </main>
+    <footer>
+        <table>
+            <tr>
+                <td class="p-footer-color">
+                    <p>©2023 TD-Shop</p>
+                </td>
+            </tr>
+        </table>
+    </footer>
+    <script type="module">
+        import products from './products.js';
+
+        const productsSection = document.getElementById('products');
+
+        products.forEach(product => {
+            const productArticle = document.createElement('article');
+            productArticle.className = 'product';
+
+            const productImage = document.createElement('img');
+            productImage.src = product.image;
+            productImage.alt = product.name;
+            productImage.className = 'img-fit';
+
+            const productName = document.createElement('h2');
+            productName.textContent = product.name;
+            productName.className = 'title';
+
+            const productDescription = document.createElement('p');
+            productDescription.textContent = product.description;
+            productDescription.className = 'whiteText';
+
+            const productPrice = document.createElement('p');
+            productPrice.textContent = `Price: $${product.price}`;
+            productPrice.className = 'whiteText';
+
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = 'Add to Cart';
+            addToCartButton.className = 'myButton';
+
+            productArticle.append(productImage, productName, productDescription, productPrice, addToCartButton);
+            productsSection.append(productArticle);
+        });
+
+        document.querySelector('.d-flex').addEventListener('submit', function (event) {
+            event.preventDefault();
+            search(event.target.querySelector('input').value);
+        });
+
+        function search(query) {
+            const filteredProducts = products.filter(product =>
+                product.category.toLowerCase().includes(query.toLowerCase()) ||
+                product.name.toLowerCase().includes(query.toLowerCase())
+            );
+            updateProductList(filteredProducts);
+        }
+
+        function updateProductList(products) {
+            const productsSection = document.getElementById('products');
+            productsSection.innerHTML = '';
+            products.forEach(addProductToPage);
+        }
+
+        function addProductToPage(product) {
+            const productLink = document.createElement('a');
+            productLink.href = `productDetails.html?id=${product.id}`;
+
+            const productArticle = document.createElement('article');
+            productArticle.className = 'product';
+
+            const productImage = document.createElement('img');
+            productImage.src = product.image;
+            productImage.alt = product.name;
+            productImage.className = 'img-fit';
+
+            const productName = document.createElement('h2');
+            productName.textContent = product.name;
+            productName.className = 'title';
+
+            const productDescription = document.createElement('p');
+            productDescription.textContent = product.description;
+            productDescription.className = 'whiteText';
+
+            const productPrice = document.createElement('p');
+            productPrice.textContent = `Price: $${product.price}`;
+            productPrice.className = 'whiteText';
+
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = 'Add to Cart';
+            addToCartButton.className = 'myButton';
+
+            productArticle.append(productImage, productName, productDescription, productPrice, addToCartButton);
+            productLink.appendChild(productArticle);
+            productsSection.appendChild(productLink);
+        }
+
+        products.forEach(addProductToPage);
+    </script>
+</body>
+
+</html>

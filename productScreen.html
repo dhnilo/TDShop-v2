@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <a class="btn btn-light my-3" href="#">Go Back</a>
+    <div class="row">
+      <div class="col-md-6">
+        <img src="path-to-your-image.jpg" alt="Product name" class="img-fluid">
+      </div>
+      <div class="col-md-3">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <h3>Product name</h3>
+          </li>
+          <li class="list-group-item">
+            Rating: 4.5
+            <span>10 reviews</span>
+          </li>
+          <li class="list-group-item">Price: $100</li>
+          <li class="list-group-item">Description: This is a great product.</li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col">Price:</div>
+                <div class="col">
+                  <strong>$100</strong>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col">Status:</div>
+                <div class="col">In Stock</div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col">Qty:</div>
+                <div class="col">
+                  <select class="form-control">
+                    <option>1</option>
+                    <!-- Add more options as needed -->
+                  </select>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <button class="btn btn-block" type="button">Add To Cart</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('id');
+
+  const product = products.find(product => product.id === productId);
+  // Display the product details on the page
+</script>
+
+</html>
