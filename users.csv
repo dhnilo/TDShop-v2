@@ -1,0 +1,4 @@
+name,email,password,isAdmin
+"Admin User","admin@email.com","$2a$10$Btjpp8b3.IaHjm15oMlRq.ESP5KN0H03KnMconowThXRdIYtjxCie",true
+"John Doe","john@email.com","$2a$10$F8rxsvq9iIz7QIslvyE0w.zbvIgTaJCDaaroFJIMg5wPiPSG4MO8O",""
+"Jane Doe","jane@email.com","$2a$10$oFUe8CS5SJN.punYhgG5zufmKiq08FtN4NtlFyDBJWbW7qJEmpdna",""

@@ -20,8 +20,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="nav-align" id="navbarSupportedContent">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form id="searchForm" class="d-flex">
+                        <input id="searchInput" class="form-control me-2" type="search" placeholder="Search"
+                            aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <div class="dropdown" style="float:right;">
@@ -36,8 +37,85 @@
         </nav>
     </header>
     <main>
-        <section id="products">
-        </section>
+        <div id="products">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+                var products = [];
+
+                $(document).ready(function () {
+                    $.ajax({
+                        url: "index.php",
+                        type: "GET",
+                        dataType: "json",
+                        success: function (data) {
+                            products = data;
+                            updateProductList(products); // Call your function to display the products
+                        },
+                        error: function (error) {
+                            console.log("Error: ", error);
+                        }
+                    });
+                });
+
+                function updateProductList(products) {
+                    const productsSection = document.getElementById('products');
+                    productsSection.innerHTML = '';
+                    products.forEach(addProductToPage);
+                }
+
+                function addProductToPage(product) {
+                    var productsSection = document.getElementById('products');
+
+                    var productDiv = document.createElement('div');
+                    productDiv.className = 'product';
+
+                    var productImage = document.createElement('img');
+                    productImage.src = product.image;
+                    productDiv.appendChild(productImage);
+                    productImage.className = 'img-fit';
+
+                    var productName = document.createElement('h2');
+                    productName.textContent = product.name;
+                    productDiv.appendChild(productName);
+                    productName.className = 'title';
+
+                    var productDescription = document.createElement('p');
+                    productDescription.textContent = product.description;
+                    productDiv.appendChild(productDescription);
+                    productDescription.className = 'whiteText';
+
+                    var productPrice = document.createElement('p');
+                    productPrice.textContent = `Price: $${product.price}`;
+                    productDiv.appendChild(productPrice);
+                    productPrice.className = 'whiteText';
+
+                    const addToCartButton = document.createElement('button');
+                    addToCartButton.textContent = 'Add to Cart';
+                    productDiv.appendChild(addToCartButton);
+                    addToCartButton.className = 'myButton';
+
+                    productsSection.appendChild(productDiv);
+                }
+
+                // Add event listener to the search form
+                var searchForm = document.getElementById('searchForm');
+                if (searchForm) {
+                    searchForm.addEventListener('submit', function (event) {
+                        event.preventDefault(); // Prevent the form from being submitted
+                        var query = document.getElementById('searchInput').value;
+                        search(query);
+                    });
+                }
+
+                function search(query) {
+                    const filteredProducts = products.filter(product =>
+                        product.category.toLowerCase().includes(query.toLowerCase()) ||
+                        product.name.toLowerCase().includes(query.toLowerCase())
+                    );
+                    updateProductList(filteredProducts);
+                }
+            </script>
+        </div>
     </main>
     <footer>
         <table>
@@ -48,94 +126,6 @@
             </tr>
         </table>
     </footer>
-    <script type="module">
-        import products from './products.js';
-
-        const productsSection = document.getElementById('products');
-
-        products.forEach(product => {
-            const productArticle = document.createElement('article');
-            productArticle.className = 'product';
-
-            const productImage = document.createElement('img');
-            productImage.src = product.image;
-            productImage.alt = product.name;
-            productImage.className = 'img-fit';
-
-            const productName = document.createElement('h2');
-            productName.textContent = product.name;
-            productName.className = 'title';
-
-            const productDescription = document.createElement('p');
-            productDescription.textContent = product.description;
-            productDescription.className = 'whiteText';
-
-            const productPrice = document.createElement('p');
-            productPrice.textContent = `Price: $${product.price}`;
-            productPrice.className = 'whiteText';
-
-            const addToCartButton = document.createElement('button');
-            addToCartButton.textContent = 'Add to Cart';
-            addToCartButton.className = 'myButton';
-
-            productArticle.append(productImage, productName, productDescription, productPrice, addToCartButton);
-            productsSection.append(productArticle);
-        });
-
-        document.querySelector('.d-flex').addEventListener('submit', function (event) {
-            event.preventDefault();
-            search(event.target.querySelector('input').value);
-        });
-
-        function search(query) {
-            const filteredProducts = products.filter(product =>
-                product.category.toLowerCase().includes(query.toLowerCase()) ||
-                product.name.toLowerCase().includes(query.toLowerCase())
-            );
-            updateProductList(filteredProducts);
-        }
-
-        function updateProductList(products) {
-            const productsSection = document.getElementById('products');
-            productsSection.innerHTML = '';
-            products.forEach(addProductToPage);
-        }
-
-        function addProductToPage(product) {
-            const productLink = document.createElement('a');
-            productLink.href = `productDetails.html?id=${product.id}`;
-
-            const productArticle = document.createElement('article');
-            productArticle.className = 'product';
-
-            const productImage = document.createElement('img');
-            productImage.src = product.image;
-            productImage.alt = product.name;
-            productImage.className = 'img-fit';
-
-            const productName = document.createElement('h2');
-            productName.textContent = product.name;
-            productName.className = 'title';
-
-            const productDescription = document.createElement('p');
-            productDescription.textContent = product.description;
-            productDescription.className = 'whiteText';
-
-            const productPrice = document.createElement('p');
-            productPrice.textContent = `Price: $${product.price}`;
-            productPrice.className = 'whiteText';
-
-            const addToCartButton = document.createElement('button');
-            addToCartButton.textContent = 'Add to Cart';
-            addToCartButton.className = 'myButton';
-
-            productArticle.append(productImage, productName, productDescription, productPrice, addToCartButton);
-            productLink.appendChild(productArticle);
-            productsSection.appendChild(productLink);
-        }
-
-        products.forEach(addProductToPage);
-    </script>
 </body>
 
 </html>

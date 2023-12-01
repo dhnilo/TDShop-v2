@@ -1,0 +1,28 @@
+name,image,description,brand,category,price,countInStock,rating,numReviews
+"Airpods Wireless Bluetooth Headphones","images/airpods.jpg","Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working","Apple","Electronics",89.99,10,4.5,12
+"iPhone 11 Pro 256GB Memory","images/phone.jpg","Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life","Apple","Electronics",599.99,7,4,8
+"Cannon EOS 80D DSLR Camera","images/camera.jpg","Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design","Cannon","Electronics",929.99,5,3,12
+"Sony Playstation 4 Pro White Version","images/playstation.jpg","The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music","Sony","Electronics",399.99,11,5,12
+"Logitech G-Series Gaming Mouse","images/mouse.jpg","Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience","Logitech","Electronics",49.99,7,3.5,10
+"Amazon Echo Dot 3rd Generation","images/alexa.jpg","Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space","Amazon","Electronics",29.99,"",4,12
+"Wilson Football","images/wilson.jpg","The Wilson NFL MVP ball features exclusive Wilson tackified PVC material with deeper pebble and firmer texture and a multi-layered lining for better shape and durability. The 3-ply bladder also provides better air retention and moisture control.","Wilson","Sports Equipment",120.99,15,4.5,7
+"Under Armour Football Cleats","images/cleats.jpeg","Upgrade your game and look good doing it in the latest cutting edge under armour football cleats.","Under Armour","Sports Equipment",109.99,10,4,5
+"Under Armour Football Gloves","images/gloves.jpg","Secure every catch this season with these Under Armour football gloves. These gloves are built to last and will help you make the big play.","Under Armour","Sports Equipment",49.99,20,4.5,10
+"Oakley Football Visor","images/visor.jpg","Protect your eyes from the sun and your face from the defense with this Oakley football visor. This visor will help you make the big play and look good doing it.","Oakley","Sports Equipment",49.99,20,4.5,4
+"Riddell Football Helmet","images/helmet.png","Protect your head from the defense with this Riddell helmet. This award winning helmet will keep you in the game and protect your biggest asset.","Riddell","Sports Equipment",249.99,20,5,8
+"Under Armour Football Shoulder Pads","images/shoulderpads.jpg","Protect your shoulders from the defense with these Under Armour football shoulder pads.","Under Armour","Sports Equipment",249.99,5,4.5,6
+"Couch","images/couch.jpeg","An ultra comfy couch. Perfect for watching TV, reading a book, or taking a nap.","Weekends Only","Furniture",789.99,5,4.5,4
+"Dining Room Table","images/diningroomtable.avif","A high qaultiy dining room table, perfect for eating dinner with the whole family.","Weekends Only","Furniture",559.99,5,3,6
+"Desk","images/desk.webp","A great desk for working from home. with plenty of space and storage.","Weekends Only","Furniture",199.99,2,5,10
+"Bed Frame","images/bed.webp","Awesome bedframe with lots of storage and great style. Perfect for any bedroom.","iKea","Furniture",449.99,8,5,17
+"Chair","images/chair.webp","Where quality meets comfort. not to mention style.","iKea","Furniture",30.95,5,3.5,3
+"Rich Dad Poor Dad","images/richdad.jpeg","A classic business book with lots of great information about personal finances.","Plata Publishing","Books",19.99,5,5,7
+"The Pyschology of Money","images/psychologyofmoney.jpeg","A great book to reshape how you think about money.","Harriman House","Books",19.99,5,4.5,8
+"Harry Potter and the Sorcerer's Stone","images/harrypotter.jpeg","The first book in the Harry Potter series. A great book for kids and adults alike.","Scholastic","Books",9.99,5,5,30
+"1984","images/1984.webp","A classic book about a dystopian future.","Penguin","Books",14.99,10,4,5
+"The Great Gatsby","images/gatsby.jpeg","A classic book about the roaring 20's.","Scribner","Books",14.99,8,4.5,3
+"Blackstone Grill","images/blackstone.jpeg","A great grill for cooking outdoors. Perfect for burgers, steaks, and more. The perfect gift for dad.","Blackstone","Cooking",999.99,2,5,7
+"Air Fryer","images/airfryer.webp","A great way to cook your favorite foods with less oil.","Ninja","Cooking",99.99,5,4,10
+"Wood Pellet Smoker","images/smoker.webp","A great smoker that gives your food a great smokey flavor. Pellets sold seperately.","Pit Boss","Cooking",599.99,4,5,12
+"Apple Wood Pellets","images/pellets.jpg","Apple wood pellets for your smoker. Perfect for chicken, pork, and more.","Pit Boss","Cooking",29.99,10,5,5
+"Bucket of Baseballs","images/bucket-of-balls.webp","A bucket of baseballs. Perfect for practice or a game.","Wilson","Sports Equipment",124.99,17,5,8
