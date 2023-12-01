@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payment</title>
+    <link href="css/index.css" rel="stylesheet">
+    <script src="products.js" type="module"></script>
+    <script src="index.js" type="module"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
+                    Shop</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="nav-align" id="navbarSupportedContent">
+                    <form id="searchForm" class="d-flex">
+                        <input id="searchInput" class="form-control me-2" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="myButton fancyButton" type="submit">Search</button>
+                    </form>
+                    <div class="dropdown" style="float:right;">
+                        <button class="btn btn-light" id="dropdown-button">USER</button>
+                        <div class="dropdown-content" id="dropdown-content">
+                            <a href="#">Profile Tab</a>
+                            <a href="#">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <br>
+        <ul style="text-align:center;">
+            <a class="whiteText" style="margin-right: 20px;" href="loginScreen.html">Login</a>
+            <a class="whiteText" style="margin-right: 20px;" href="shippingScreen.html">Shipping</a>
+            <a class="whiteText" style="margin-right: 20px;" href="paymentScreen.html">Payment</a>
+            <a class="whiteText" style="margin-right: 20px;" href="paymentScreen.html">Place Order</a>
+        </ul>
+        <form style="text-align:center;">
+            <h1 class="title" style="text-align:center;">Payment Method</h1>
+            <h3 class="whiteText" style="text-align:center;">Select Payment Method</h2>
+            <label style="text-align:center;">
+                <input type="radio" name="payment" value="PayPal">
+                PayPal or CreditCard
+            </label>
+            <br>
+            <button type="submit" class="btn-primary" style="padding: 10px;margin-top:5px;" onclick="submitForm()">Continue
+            </button>
+        </form>
+    </main>
+    <footer>
+        <table>
+            <tr>
+                <td class="p-footer-color">
+                    <p>©2023 TD-Shop</p>
+                </td>
+            </tr>
+        </table>
+    </footer>
+    <script>
+        function submitForm() {
+            // Perform form validation if needed
+
+            // Redirect to placeOrder.html
+            window.location.href = "placeOrderScreen.html";
+        }
+    </script>
+</body>
+
+</html>

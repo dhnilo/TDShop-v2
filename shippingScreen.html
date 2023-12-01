@@ -5,60 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/index.css" rel="stylesheet">
     <title>Shipping</title>
-    <style>
-        nav {
-            max-height: 15vh;
-        } 
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        form {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #555;
-        }
-
-        .error {
-            color: red;
-            margin-top: -10px;
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -73,8 +19,8 @@
             <div class="nav-align" id="navbarSupportedContent">
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                    <button class="myButton fancyButton" type="submit">Search</button>
+                </form><!-- class="btn btn-outline-success" -->
                 <div class="dropdown" style="float:right;">
                     <button class="btn btn-light" id="dropdown-button">USER</button>
                     <div class="dropdown-content" id="dropdown-content">
@@ -87,24 +33,32 @@
     </nav>
 </header>
 <body>
+    <br>
+    <ul style="text-align:center;">
+        <a class="whiteText" style="margin-right: 20px;" href="loginScreen.html">Login</a>
+        <a class="whiteText" style="margin-right: 20px;" href="shippingScreen.html">Shipping</a>
+        <a class="whiteText" style="margin-right: 20px;" href="shippingScreen.html">Payment</a>
+        <a class="whiteText" style="margin-right: 20px;" href="shippingScreen.html">Place Order</a>
+    </ul>
+    <div class="shipRegForm">
+        <form id="registrationForm">
+            <label for="firstName">Address</label>
+            <input type="text" id="firstName" name="firstName" required>
 
-    <form id="registrationForm">
-        <label for="firstName">Address</label>
-        <input type="text" id="firstName" name="firstName" required>
+            <label for="lastName">City</label>
+            <input type="text" id="lastName" name="lastName" required>
 
-        <label for="lastName">City</label>
-        <input type="text" id="lastName" name="lastName" required>
+            <label for="email">Postal Code</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="email">Postal Code</label>
-        <input type="email" id="email" name="email" required>
+            <label for="password">Country</label>
+            <input type="password" id="password" name="password" required>
 
-        <label for="password">Country</label>
-        <input type="password" id="password" name="password" required>
+            <p class="error" id="errorMessage"></p>
 
-        <p class="error" id="errorMessage"></p>
-
-        <button type="button" onclick="validateForm()">Continue</button>
-    </form>
+            <button type="button" onclick="validateForm()">Continue</button>
+        </form>
+    </div>
 
     <script>
         function validateForm() {
