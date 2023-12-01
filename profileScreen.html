@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/index.css" rel="stylesheet">
+    <title>Profile</title>
+</head>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
+                Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="nav-align" id="navbarSupportedContent">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="myButton fancyButton" type="submit">Search</button>
+                </form>
+                <div class="dropdown" style="float:right;">
+                    <button class="btn btn-light" id="dropdown-button">USER</button>
+                    <div class="dropdown-content" id="dropdown-content">
+                        <a href="#">Profile Tab</a>
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        <div class="profileInfo">
+            <h1 class="title">User Profile</h1>
+            <form id="registrationForm">
+                <label for="firstName">Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+                <p class="error" id="errorMessage"></p>
+
+                <button type="button" onclick="validateForm()">Update</button>
+            </form>
+        </div>
+        <div class="orderHistory">
+            <h1 class="title">Order History</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="whiteText">ID</th>
+                        <th class="whiteText">Date</th>
+                        <th class="whiteText">Total</th>
+                        <th class="whiteText">Paid</th>
+                        <th class="whiteText">Delivered</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+            // Get form inputs
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Display error message
+            var errorMessage = document.getElementById('errorMessage');
+            errorMessage.innerHTML = '';
+
+            // Check for empty fields
+            if (!name || !email || !password || !confirmPassword) {
+                errorMessage.innerHTML = 'All fields are required.';
+                return;
+            }
+
+            // Check if the email is valid
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.innerHTML = 'Invalid email address.';
+                return;
+            }
+
+            // Check for empty fields
+            if (!password || !confirmPassword) {
+                errorMessage.innerHTML = 'All fields are required.';
+                return;
+            }
+
+            // Check if the password is at least 8 characters long
+            if (password.length < 8) {
+                errorMessage.innerHTML = 'Password must be at least 8 characters long.';
+                return;
+            }
+
+            // Check if the passwords match
+            if (password !== confirmPassword) {
+                errorMessage.innerHTML = 'Passwords do not match.';
+                return;
+            }
+
+            // If all checks pass, you can proceed with form submission or other actions
+            // For now, you can display a success message
+            errorMessage.style.color = 'green';
+            errorMessage.innerHTML = 'Registration successful!';
+        }
+    </script>
+
+</body>
+</html>
