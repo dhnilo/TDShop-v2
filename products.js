@@ -325,4 +325,18 @@ const products = [
   },
 ];
 
-export default products;
+const fs = require('fs');
+
+var fields = Object.keys(products[0]);
+var csv = products.map(function(row){
+  return fields.map(function(fieldName){
+    return JSON.stringify(row[fieldName] || '');
+  }).join(',');
+});
+csv.unshift(fields.join(',')); // add header column
+csv = csv.join('\r\n');
+
+fs.writeFile('products.csv', csv, function(err) {
+  if (err) throw err;
+  console.log('File saved!');
+});
