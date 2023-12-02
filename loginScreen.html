@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+  <div>
+    <form id="login-form">
+      <label for="email">Email:</label>
+      <input type="text" id="email" placeholder="Enter your email" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" required>
+      <button type="submit">Log In</button>
+    </form>
+    <p>Don't have an account? <a href="registerScreen.html">Register</a></p>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"
+    integrity="sha512-DNI/FJdkfyeuPUal7lDkRVg0mFY2n4IZJJYqPbQWLL0COxLi6G6nmf5gr1vW1Bd4wYC09hOvZVsSclfXxUTU/w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/login.js"></script>
+</body>
+
+</html>

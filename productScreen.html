@@ -1,75 +1,123 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>TD Shop</title>
+  <link href="css/index.css" rel="stylesheet">
 </head>
 
 <body>
-  <div>
-    <a class="btn btn-light my-3" href="#">Go Back</a>
-    <div class="row">
-      <div class="col-md-6">
-        <img src="path-to-your-image.jpg" alt="Product name" class="img-fluid">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
+          Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
       </div>
-      <div class="col-md-3">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <h3>Product name</h3>
-          </li>
-          <li class="list-group-item">
-            Rating: 4.5
-            <span>10 reviews</span>
-          </li>
-          <li class="list-group-item">Price: $100</li>
-          <li class="list-group-item">Description: This is a great product.</li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <ul class="list-group">
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col">Price:</div>
-                <div class="col">
-                  <strong>$100</strong>
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col">Status:</div>
-                <div class="col">In Stock</div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col">Qty:</div>
-                <div class="col">
-                  <select class="form-control">
-                    <option>1</option>
-                    <!-- Add more options as needed -->
-                  </select>
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <button class="btn btn-block" type="button">Add To Cart</button>
-            </li>
-          </ul>
+    </nav>
+  </header>
+  <main>
+    <a href="homeScreen.html">
+      <button class="btn btn-light my-3">
+        Back to Home
+      </button>
+    </a>
+    <div id="product-container" class="product-screen">
+      <div id="card-flex" class="product-screen">
+        <h1 id="product-name" class="title"></h1>
+        <div id="content-container" class="product-screen">
+          <img class="img-fit" src="" id="product-image">
+          <div id="product-details-container" class='product-screen'>
+            <p id="product-description" class="whiteText"></p>
+            <p id="product-price" class="whiteText"></p>
+            <p id="product-rating" class="whiteText"></p>
+            <p id="product-count-in-stock" class="whiteText"></p>
+            <input type="number" id="product-qty" min="1" placeholder="1">
+            <button class="btn btn-primary my-3" onclick="addToCart()" id="add-to-cart-button">Add to Cart</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id');
+    <script>
+      console.log('hello');
 
-  const product = products.find(product => product.id === productId);
-  // Display the product details on the page
-</script>
+      window.onload = function () {
+        const id = getProductIdFromUrl();
+        fetchProduct(id);
+      };
+
+      function getProductIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');
+      }
+
+      function fetchProduct(productId) {
+        fetch('index.php?id=' + productId)
+          .then(response => response.json())
+          .then(product => {
+            console.log(product);
+            displayProduct(product);
+          });
+      }
+
+      function displayProduct(product) {
+        const productName = document.getElementById('product-name');
+        const productImage = document.getElementById('product-image');
+        const productDescription = document.getElementById('product-description');
+        const productPrice = document.getElementById('product-price');
+
+        if (productName) {
+          productName.textContent = product.name;
+        }
+
+        if (productImage) {
+          productImage.src = product.image;
+        }
+
+        if (productDescription) {
+          productDescription.textContent = product.description;
+        }
+
+        if (productPrice) {
+          productPrice.textContent = `$${product.price}`;
+        }
+      }
+    </script>
+    <script>
+      function addToCart() {
+        const id = getProductIdFromUrl();
+        let qty = document.getElementById('product-qty').value;
+        qty = qty && !isNaN(qty) ? Number(qty) : 1;
+        const cart = getCart();
+        const existingItem = cart.find(item => item.id == id);
+        if (existingItem) {
+          existingItem.qty += qty;
+        } else {
+          cart.push({
+            id: id,
+            qty: qty
+          });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert('Added to cart');
+      }
+
+      function getCart() {
+        const cart = localStorage.getItem('cart');
+        if (cart) {
+          return JSON.parse(cart);
+        } else {
+          return [];
+        }
+      }
+    </script>
+  </main>
+</body>
 
 </html>

@@ -49,14 +49,16 @@ main {
 }
 
 .product-title {
-  height: 2.5em;
-  /* Set a fixed height */
-  overflow: hidden;
-  /* Hide overflow content */
-  text-overflow: ellipsis;
-  /* Add ellipsis for long text */
-  white-space: nowrap;
-  /* Prevent wrapping */
+  height: 2.5em; /* Set a fixed height */
+  overflow: hidden; /* Hide overflow content */
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+  white-space: nowrap; /* Prevent wrapping */
+  margin-top: 0;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: white;
+  text-shadow: 2px 2px var(--bs-purple);
 }
 
 table td,
@@ -79,19 +81,47 @@ table th {
   margin-top: 10px;
 }
 
-.carousel-caption {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+#product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
 }
 
-.card-flex {
+#product-description-container {
+  flex-direction: column;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.img-fit {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  margin-bottom: 10px;
+  color: white;
+  font-size: 17px;
+}
+
+.price-button-wrapper {
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.product-price {
+  margin-bottom: 10px;
+  color: white;
+  font-size: 17px;
+  justify-content: right;
+  margin-left: auto;
 }
 
 .img {
@@ -112,13 +142,96 @@ table th {
   object-fit: scale-down;
 }
 
+.product-screen #product-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns items to the left */
+  width: 800px;
+}
+
+.product-screen #card-header {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: white;
+  text-shadow: 2px 2px var(--bs-purple);
+}
+
+.product-screen #content-container {
+  display: flex;
+  gap: 20px;
+  width: 800px;
+}
+
+.product-screen #card-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 800px;
+  max-width: 800px;
+  background:#1a1e21;
+  border-radius: 5px;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .product-screen #card-flex {
+    width: 90%;
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product-screen #card-flex {
+    width: 100%;
+    padding: 0.5rem;
+  }
+}
+
+.product-screen .img-fit {
+  grid-area: image;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  height: 250px;
+  object-fit: scale-down;
+}
+
+.product-scrren .title{
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: white;
+  text-shadow: 2px 2px var(--bs-purple);
+}
+
+.product-screen .price-button-wrapper {
+  grid-area: button;
+  /* ... rest of your CSS ... */
+}
+
+.product-screen #product-description-container {
+  grid-area: details;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: auto;
+}
+
 .logo {
   width: 75px;
   height: 75px;
   object-fit: scale-down;
 }
 
-.title {
+.title{
   margin-top: 0;
   margin-bottom: 1.2rem;
   font-weight: 500;
@@ -154,6 +267,7 @@ table th {
   display: inline-block;
   font-size: 17px;
   margin: 4px 2px;
+  margin-top: auto;
   cursor: pointer;
 }
 
@@ -217,20 +331,21 @@ table th {
 }
 
 #products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
-.product {
-  flex: 1 0 200px;
-  /* Adjust as needed */
-  margin: 10px;
-  background: #34383c;
-  border: 1px solid #000;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.card-flex {
+  display: flex;
+  flex-direction: column;
+  background: #1f1e1e;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: auto;
 }
 
 .nav-align {

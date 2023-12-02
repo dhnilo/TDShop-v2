@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +13,8 @@
             <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
                 Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="nav-align" id="navbarSupportedContent">
@@ -32,27 +33,34 @@
         </div>
     </nav>
 </header>
+
 <body>
     <div class="shipRegForm">
-        <form id="registrationForm">
-            <label for="firstName">Name:</label>
-            <input type="text" id="firstName" name="firstName" required>
-
+        <form id="register-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
+            <input type="email" id="email" placeholder="Enter your email" required>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-
+            <input type="password" id="password" placeholder="Enter your password" required>
             <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-
-            <p class="error" id="errorMessage"></p>
-
-            <button type="button" onclick="validateForm()">Register</button>
+            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+            <button type="submit">Register</button>
         </form>
     </div>
     <script>
+        // Get the form element
+        var form = document.getElementById('register-form');
+
+        // Add an event listener to the form
+        form.addEventListener('submit', function (event) {
+            // Prevent the form from being submitted normally
+            event.preventDefault();
+
+            // Call the validateForm function
+            validateForm();
+        });
+
         function validateForm() {
             // Get form inputs
             var name = document.getElementById('name').value;
@@ -60,41 +68,62 @@
             var password = document.getElementById('password').value;
             var confirmPassword = document.getElementById('confirmPassword').value;
 
-            // Display error message
-            var errorMessage = document.getElementById('errorMessage');
-            errorMessage.innerHTML = '';
-
             // Check for empty fields
             if (!name || !email || !password || !confirmPassword) {
-                errorMessage.innerHTML = 'All fields are required.';
+                alert('All fields are required.');
                 return;
             }
 
             // Check if the email is valid
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                errorMessage.innerHTML = 'Invalid email address.';
+                alert('Invalid email address.');
                 return;
             }
 
             // Check if the password is at least 8 characters long
             if (password.length < 8) {
-                errorMessage.innerHTML = 'Password must be at least 8 characters long.';
+                alert('Password must be at least 8 characters long.');
                 return;
             }
 
             // Check if the passwords match
             if (password !== confirmPassword) {
-                errorMessage.innerHTML = 'Passwords do not match.';
+                alert('Passwords do not match.');
                 return;
             }
 
-            // If all checks pass, you can proceed with form submission or other actions
-            // For now, you can display a success message
-            errorMessage.style.color = 'green';
-            errorMessage.innerHTML = 'Registration successful!';
+            // If all checks pass, send a POST request to the register.php script
+            var formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('password', password);
+
+            // If all checks pass, send a POST request to the register.php script
+            fetch('php/register.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // The registration was successful
+                        alert('Registration successful!')
+                        // Redirect to the login screen after 2 seconds
+                        setTimeout(function () {
+                            window.location.href = 'loginScreen.html';
+                        }, 2000);
+                    } else {
+                        // The registration was unsuccessful
+                        alert('Registration unsuccessful. Please try again')
+                        setTimeout(function () {
+                            window.location.href = 'registerScreen.html';
+                        }, 2000);
+                    }
+                });
         }
     </script>
 
 </body>
+
 </html>

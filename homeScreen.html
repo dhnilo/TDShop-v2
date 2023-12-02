@@ -4,7 +4,6 @@
 <head>
     <title>TD Shop</title>
     <link href="css/index.css" rel="stylesheet">
-    <script src="products.js" type="module"></script>
     <script src="index.js" type="module"></script>
 </head>
 
@@ -38,83 +37,131 @@
     </header>
     <main>
         <div id="products">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script>
-                var products = [];
+            <div class="product">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="js/cart.js"></script>
+                <script>
+                    var products = [];
 
-                $(document).ready(function () {
-                    $.ajax({
-                        url: "index.php",
-                        type: "GET",
-                        dataType: "json",
-                        success: function (data) {
-                            products = data;
-                            updateProductList(products); // Call your function to display the products
-                        },
-                        error: function (error) {
-                            console.log("Error: ", error);
+                    $(document).ready(function () {
+
+                        // Check the login status
+                        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                        const dropdownContent = document.getElementById('dropdown-content');
+                        dropdownContent.innerHTML = '';
+                        if (isLoggedIn) {
+                            // If the user is logged in, show the profile tab and the logout button
+                            dropdownContent.innerHTML += '<a href="#">Profile Tab</a>';
+                            dropdownContent.innerHTML += '<a href="#" id="logout">Logout</a>';
+                        } else {
+                            // If the user is not logged in, show the login button
+                            dropdownContent.innerHTML += '<a href="loginScreen.html">Log In</a>';
                         }
+
+                        // Add a click event listener to the logout button
+                        const logoutButton = document.getElementById('logout');
+                        if (logoutButton) {
+                            logoutButton.addEventListener('click', function () {
+                                // Clear the login status
+                                localStorage.removeItem('isLoggedIn');
+                                clearCart();
+                                // Refresh the page
+                                location.reload();
+                            });
+                        }
+
+                        $.ajax({
+                            url: "index.php",
+                            type: "GET",
+                            dataType: "json",
+                            success: function (data) {
+                                products = data;
+                                console.log(products);
+                                updateProductList(products); // Call your function to display the products
+                            },
+                            error: function (error) {
+                                console.log("Error: ", error);
+                            }
+                        });
                     });
-                });
 
-                function updateProductList(products) {
-                    const productsSection = document.getElementById('products');
-                    productsSection.innerHTML = '';
-                    products.forEach(addProductToPage);
-                }
+                    function updateProductList(products) {
+                        const productsSection = document.getElementById('products');
+                        productsSection.innerHTML = '';
+                        products.forEach(addProductToPage);
+                    }
 
-                function addProductToPage(product) {
-                    var productsSection = document.getElementById('products');
+                    function addProductToPage(product) {
+                        var productsSection = document.getElementById('products');
 
-                    var productDiv = document.createElement('div');
-                    productDiv.className = 'product';
+                        var productDiv = document.createElement('div');
+                        productDiv.className = 'card-flex'; // Add the 'card-flex' class to the productDiv
 
-                    var productImage = document.createElement('img');
-                    productImage.src = product.image;
-                    productDiv.appendChild(productImage);
-                    productImage.className = 'img-fit';
+                        var productLink = document.createElement('a');
+                        productLink.href = `productScreen.html?id=${product.id}`;
 
-                    var productName = document.createElement('h2');
-                    productName.textContent = product.name;
-                    productDiv.appendChild(productName);
-                    productName.className = 'title';
+                        var productImage = document.createElement('img');
+                        productImage.src = product.image;
+                        productImage.className = 'img-fit'; // Add the 'img-fit' class to the productImage
+                        productLink.appendChild(productImage);
+                        productDiv.appendChild(productLink);
 
-                    var productDescription = document.createElement('p');
-                    productDescription.textContent = product.description;
-                    productDiv.appendChild(productDescription);
-                    productDescription.className = 'whiteText';
+                        var productNameLink = document.createElement('a');
+                        productNameLink.href = `productScreen.html?id=${product.id}`;
 
-                    var productPrice = document.createElement('p');
-                    productPrice.textContent = `Price: $${product.price}`;
-                    productDiv.appendChild(productPrice);
-                    productPrice.className = 'whiteText';
+                        var productName = document.createElement('h2'); // Change 'product-title' to 'h2'
+                        productName.textContent = product.name;
+                        productName.id = 'product-title';
+                        productName.className = 'product-title'; // Add the 'title' class to the productName
+                        productNameLink.appendChild(productName);
+                        productDiv.appendChild(productNameLink);
 
-                    const addToCartButton = document.createElement('button');
-                    addToCartButton.textContent = 'Add to Cart';
-                    productDiv.appendChild(addToCartButton);
-                    addToCartButton.className = 'myButton';
+                        var productDescription = document.createElement('p'); // Change 'productDescription' to 'p'
+                        productDescription.textContent = product.description;
+                        productDescription.id = 'product-description';
+                        productDescription.className = 'product-description'; // Add the 'product-description' class to the productDescription
+                        productDiv.appendChild(productDescription);
 
-                    productsSection.appendChild(productDiv);
-                }
+                        var priceButtonWrapper = document.createElement('div'); // Add this to create the wrapper div
+                        priceButtonWrapper.className = 'price-button-wrapper';
 
-                // Add event listener to the search form
-                var searchForm = document.getElementById('searchForm');
-                if (searchForm) {
-                    searchForm.addEventListener('submit', function (event) {
-                        event.preventDefault(); // Prevent the form from being submitted
-                        var query = document.getElementById('searchInput').value;
-                        search(query);
-                    });
-                }
+                        var productPrice = document.createElement('p'); // Add this to create the product price
+                        productPrice.textContent = '$' + product.price;
+                        productPrice.id = 'product-price';
+                        productPrice.className = 'product-price'; // Add the 'product-price' class to the productPrice
+                        productDiv.appendChild(productPrice);
 
-                function search(query) {
-                    const filteredProducts = products.filter(product =>
-                        product.category.toLowerCase().includes(query.toLowerCase()) ||
-                        product.name.toLowerCase().includes(query.toLowerCase())
-                    );
-                    updateProductList(filteredProducts);
-                }
-            </script>
+                        var addToCartButton = document.createElement('button'); // Add this to create the "Add to Cart" button
+                        addToCartButton.textContent = 'Add to Cart';
+                        addToCartButton.className = 'myButton'; // Add the 'btn' class to the addToCartButton
+                        addToCartButton.addEventListener('click', function () {
+                            addToCart(product);
+                            alert('Added one item to cart!');
+                        });
+                        productDiv.appendChild(addToCartButton);
+
+                        productsSection.appendChild(productDiv);
+                    }
+
+                    // Add event listener to the search form
+                    var searchForm = document.getElementById('searchForm');
+                    if (searchForm) {
+                        searchForm.addEventListener('submit', function (event) {
+                            event.preventDefault(); // Prevent the form from being submitted
+                            var query = document.getElementById('searchInput').value;
+                            search(query);
+                        });
+                    }
+
+                    function search(query) {
+                        const filteredProducts = products.filter(product =>
+                            product.category.toLowerCase().includes(query.toLowerCase()) ||
+                            product.name.toLowerCase().includes(query.toLowerCase())
+                        );
+                        updateProductList(filteredProducts);
+                    }
+                </script>
+            </div>
         </div>
     </main>
     <footer>
