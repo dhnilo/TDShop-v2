@@ -247,6 +247,7 @@ table th {
   font-size: 16px;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .dropdown {

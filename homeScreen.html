@@ -94,6 +94,11 @@
                     productDiv.appendChild(addToCartButton);
                     addToCartButton.className = 'myButton';
 
+                    addToCartButton.addEventListener('click', function () {
+                        addToCart(product); // You can define this function to handle adding the product to the cart
+                        window.location.href = 'cartScreen.html'; // Redirect to the cart screen
+                    });
+
                     productsSection.appendChild(productDiv);
                 }
 

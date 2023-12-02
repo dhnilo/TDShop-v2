@@ -1,36 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- <meta charset="UTF-8"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/index.css" rel="stylesheet">
+    <link href="css/shippingScreen.css" rel="stylesheet">
     <title>Shipping</title>
 </head>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
-                Shop</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="nav-align" id="navbarSupportedContent">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="myButton fancyButton" type="submit">Search</button>
-                </form><!-- class="btn btn-outline-success" -->
-                <div class="dropdown" style="float:right;">
-                    <button class="btn btn-light" id="dropdown-button">USER</button>
-                    <div class="dropdown-content" id="dropdown-content">
-                        <a href="profileScreen.html">Profile Tab</a>
-                        <a href="loginScreen.html">Logout</a>
-                    </div>
+<header class="black-header">
+    <div class="container">
+        <div class="logo-container">
+            <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+            <h1 class="company-name">TD Shop</h1>
+        </div>
+        <div class="search-container">
+            <form class="search-form">
+                <input type="text" placeholder="Search">
+                <button class="myButton fancyButton" type="submit">Search</button>
+            </form>
+            <div class="profile-dropdown">
+                <button class="profile-button">User</button>
+                <div class="dropdown-content">
+                    <a href="#">View Profile</a>
+                    <a href="#">Logout</a>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
 </header>
 <body>
     <br>
@@ -40,25 +35,30 @@
         <a class="whiteText" style="margin-right: 20px;" href="shippingScreen.html">Payment</a>
         <a class="whiteText" style="margin-right: 20px;" href="shippingScreen.html">Place Order</a>
     </ul>
+    <h1 class="title" style="text-align:center;">Shipping</h1>
     <div class="shipRegForm">
         <form id="registrationForm">
-            <label for="firstName">Address</label>
-            <input type="text" id="firstName" name="firstName" required>
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required>
 
-            <label for="lastName">City</label>
-            <input type="text" id="lastName" name="lastName" required>
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required>
 
-            <label for="email">Postal Code</label>
-            <input type="email" id="email" name="email" required>
+            <label for="postalCode">Postal Code</label>
+            <input type="text" id="postalCode" name="postalCode" required>
 
-            <label for="password">Country</label>
-            <input type="password" id="password" name="password" required>
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" required>
 
             <p class="error" id="errorMessage"></p>
 
             <button type="button" onclick="validateForm()">Continue</button>
         </form>
     </div>
+<!-- Need to fix the font on the pages the header looks good to be copied to the rest of the pages -->
+    <footer class="p-footer-color">
+        <p>©2023 TD-Shop</p>
+    </footer>
 
     <script>
         function validateForm() {
@@ -70,13 +70,32 @@
 
             // Display error message
             var errorMessage = document.getElementById('errorMessage');
-            errorMessage.innerHTML = '';
 
-            // If all checks pass, you can proceed with form submission or other actions
-            // For now, you can display a success message
-            errorMessage.style.color = 'green';
-            errorMessage.innerHTML = 'Registration successful!';
+            if (address === '' || city === '' || postalCode === '' || country === '') {
+                errorMessage.style.color = 'red';
+                errorMessage.innerHTML = 'Please fill out all fields.';
+                return false; // Prevent form submission
+            } else {
+                // Redirect to paymentScreen.html
+                window.location.href = 'paymentScreen.html';
+                return true; // Allow form submission
+            }
         }
+
+        // Enable the "Continue" button only if all required fields are filled
+        document.addEventListener('input', function () {
+            var continueButton = document.getElementById('continueButton');
+            var address = document.getElementById('address').value;
+            var city = document.getElementById('city').value;
+            var postalCode = document.getElementById('postalCode').value;
+            var country = document.getElementById('country').value;
+
+            if (address !== '' && city !== '' && postalCode !== '' && country !== '') {
+                continueButton.disabled = false;
+            } else {
+                continueButton.disabled = true;
+            }
+        });
     </script>
 
 </body>

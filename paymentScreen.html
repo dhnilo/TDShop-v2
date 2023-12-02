@@ -46,11 +46,12 @@
         <form style="text-align:center;">
             <h1 class="title" style="text-align:center;">Payment Method</h1>
             <h3 class="whiteText" style="text-align:center;">Select Payment Method</h2>
-            <label style="text-align:center;">
-                <input type="radio" name="payment" value="PayPal">
-                PayPal or CreditCard
-            </label>
-            <br>
+            <div class="whiteText">
+                <label style="text-align:center;">
+                    <input type="radio" name="payment" value="PayPal" class="whiteText" checked>
+                    PayPal or CreditCard
+                </label>
+            </div>
             <button type="submit" class="btn-primary" style="padding: 10px;margin-top:5px;" onclick="submitForm()">Continue
             </button>
         </form>
@@ -70,6 +71,7 @@
 
             // Redirect to placeOrder.html
             window.location.href = "placeOrderScreen.html";
+            return true;
         }
     </script>
 </body>

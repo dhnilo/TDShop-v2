@@ -1,0 +1,264 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    min-height: 100vh;
+    animation: gradient 7s ease infinite;
+    font-family: sans-serif;
+}
+:root{
+  --gray:#6c757d;
+  --purple: #6f42c1;
+  --aqua:#18bc9c;
+  --charcoal: #333;
+/*
+  --bs-blue: #0d6efd;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #ffc107;
+  --bs-green: #198754;
+  --bs-teal: #20c997;
+  --bs-cyan: #0dcaf0;
+  --bs-white: #fff;
+  --bs-gray: #6c757d;
+  --bs-gray-dark: #343a40;
+  --bs-primary: #0d6efd;
+  --bs-secondary: #6c757d;
+  --bs-success: #198754;
+  --bs-info: #0dcaf0;
+  --bs-warning: #ffc107;
+  --bs-danger: #dc3545;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;*/
+
+}
+/* for gradient background */
+@keyframes gradient {
+    0% {
+    background-position: 0% 50%;
+    }
+
+    50% {
+    background-position: 100% 50%;
+    }
+
+    100% {
+    background-position: 0% 50%;
+    }
+}
+main {
+    min-height: 80vh;
+}
+
+
+.logo {
+    width: 75px;
+    height: 75px;
+    object-fit: scale-down;
+}
+
+/* two types of titles */
+.title {
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.2;
+    color: white;
+    text-shadow: 2px 2px var(--purple);
+}
+.purpleTitle{
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: black;
+    text-shadow: 2px 2px var(--gray);
+}
+
+/* general white text */
+.whiteText {
+    color: white;
+    font-size: 17px;
+}
+
+/* to make my cool button */
+.myButton {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid #18bc9c;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 17px;
+    cursor: pointer;
+}
+.fancyButton {
+    padding: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+    transition:
+    width 2s,
+    height 2s,
+    background-color 2s,
+    rotate 2s;
+}
+
+.fancyButton:hover {
+    background-color: #18bc9c;
+    color: white;
+    rotate: 360deg;
+}
+
+
+
+/* Nav bar section */
+/* --------------------------------------------- */
+.black-header {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
+}
+/* hold the elements */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo & name */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+.company-name {
+    margin: 0;
+    font-size: 25px;
+}
+
+/* Search area */
+.search-container {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+.search-form {
+    display: flex;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+/* search bar */
+input {
+    padding: 8px;
+    border-radius: 8px;
+    padding: 8px 15px;
+}
+
+/* profile/dropdown */
+button {
+    padding: 8px 15px;
+    background-color: #18bc9c;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.profile-dropdown {
+    position: relative;
+}
+.profile-button {
+    padding: 10px 20px;
+    background-color: #18bc9c;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    right:0;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 100%;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #18bc9c;
+}
+.profile-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Main form of the page */
+/* --------------------------------------------- */
+.shipRegForm {
+    width: 30vw;
+    padding: 10px;
+    margin-bottom: 15px;
+    /* border: 1px solid #ccc; */
+    border: 1px solid var(--charcoal);
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+}
+.shipRegForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.shipRegForm input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--charcoal);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.shipRegForm button {
+    width: 100%;
+    background-color: var(--purple);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.shipRegForm button:hover {
+    background-color: var(--aqua);
+}
+.shipRegForm .error {
+    color: red;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+/* -------------------------------------- */
+footer{
+    text-align: center;
+}
+.p-footer-color {
+    color: #FFFFFF !important;
+    text-align: center !important;
+    justify-content: center !important;
+}
