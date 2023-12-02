@@ -208,48 +208,18 @@ button {
 
 /* Main form of the page */
 /* --------------------------------------------- */
-.shipRegForm {
-    width: 30vw;
+.continueButton {
     padding: 10px;
-    margin-bottom: 15px;
-    /* border: 1px solid #ccc; */
-    border: 1px solid var(--charcoal);
-    border-radius: 8px;
-    box-sizing: border-box;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 50px auto;
-}
-.shipRegForm label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-.shipRegForm input {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid var(--charcoal);
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.shipRegForm button {
-    width: 100%;
-    background-color: var(--purple);
-    color: #fff;
-    padding: 10px;
+    background-color: #18bc9c;
+    color: white;
+    border-radius: 5px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
+    font-size: 17px;
 }
-.shipRegForm button:hover {
-    background-color: var(--aqua);
-}
-.shipRegForm .error {
-    color: red;
-    margin-top: -10px;
-    margin-bottom: 10px;
+.continueButton:hover {
+    background-color: var(--purple);
+    color: white;
 }
 
 /* Footer */

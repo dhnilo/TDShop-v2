@@ -3,37 +3,31 @@
 
 <head>
     <title>Payment</title>
-    <link href="css/index.css" rel="stylesheet">
+    <link href="css/paymentScreen.css" rel="stylesheet">
     <script src="products.js" type="module"></script>
     <script src="index.js" type="module"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
-                    Shop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="nav-align" id="navbarSupportedContent">
-                    <form id="searchForm" class="d-flex">
-                        <input id="searchInput" class="form-control me-2" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <button class="myButton fancyButton" type="submit">Search</button>
-                    </form>
-                    <div class="dropdown" style="float:right;">
-                        <button class="btn btn-light" id="dropdown-button">USER</button>
-                        <div class="dropdown-content" id="dropdown-content">
-                            <a href="profileScreen.html">Profile Tab</a>
-                            <a href="loginScreen.html">Logout</a>
-                        </div>
+    <header class="black-header">
+        <div class="container">
+            <div class="logo-container">
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+                <h1 class="company-name">TD Shop</h1>
+            </div>
+            <div class="search-container">
+                <form class="search-form">
+                    <input type="text" placeholder="Search">
+                    <button class="myButton fancyButton" type="submit">Search</button>
+                </form>
+                <div class="profile-dropdown">
+                    <button class="profile-button">User</button>
+                    <div class="dropdown-content">
+                        <a href="profileScreen.html">View Profile</a>
+                        <a href="loginScreen.html">Logout</a>
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
     <main>
         <br>
@@ -52,18 +46,12 @@
                     PayPal or CreditCard
                 </label>
             </div>
-            <button type="submit" class="btn-primary" style="padding: 10px;margin-top:5px;" onclick="submitForm()">Continue
+            <button type="submit" class="continueButton" style="padding: 10px;margin-top:5px;" onclick="submitForm()">Continue
             </button>
         </form>
     </main>
-    <footer>
-        <table>
-            <tr>
-                <td class="p-footer-color">
-                    <p>©2023 TD-Shop</p>
-                </td>
-            </tr>
-        </table>
+    <footer class="p-footer-color">
+        <p>©2023 TD-Shop</p>
     </footer>
     <script>
         function submitForm() {

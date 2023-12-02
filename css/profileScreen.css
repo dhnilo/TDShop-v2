@@ -73,7 +73,7 @@ main {
 }
 .purpleTitle{
     margin-top: 0;
-    margin-bottom: 1.2rem;
+    margin-bottom: 25px;
     font-weight: 500;
     line-height: 1.2;
     color: var(--purple);
@@ -127,7 +127,7 @@ main {
     padding: 15px 0;
 }
 /* hold the elements */
-.container {
+.containerNav {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -208,11 +208,10 @@ button {
 
 /* Main form of the page */
 /* --------------------------------------------- */
-.shipRegForm {
-    width: 30vw;
+.profileInfo {
+    width: 25vw;
     padding: 10px;
     margin-bottom: 15px;
-    /* border: 1px solid #ccc; */
     border: 1px solid var(--charcoal);
     border-radius: 8px;
     box-sizing: border-box;
@@ -220,21 +219,23 @@ button {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 50px auto;
+    margin-left: 30px;
+    flex: 1;
 }
-.shipRegForm label {
+.profileInfo label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
 }
-.shipRegForm input {
+.profileInfo input {
     width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid var(--charcoal);
     border-radius: 4px;
     box-sizing: border-box;
 }
-.shipRegForm button {
+.profileInfo button {
     width: 100%;
     background-color: var(--purple);
     color: #fff;
@@ -243,13 +244,28 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
-.shipRegForm button:hover {
+.profileInfo button:hover {
     background-color: var(--aqua);
 }
-.shipRegForm .error {
+.profileInfo .error {
     color: red;
     margin-top: -10px;
     margin-bottom: 10px;
+}
+.container{
+    display: flex;
+}
+.orderHistory{
+    flex: 2;
+    margin-left: 20px;
+    top: 100%;
+}
+table{
+    width: 100%;
+}
+th{
+    padding: 10px;
+    text-align: left;
 }
 
 /* Footer */

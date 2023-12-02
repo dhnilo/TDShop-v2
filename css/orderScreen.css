@@ -127,7 +127,7 @@ main {
     padding: 15px 0;
 }
 /* hold the elements */
-.container {
+.containerNav {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -208,48 +208,56 @@ button {
 
 /* Main form of the page */
 /* --------------------------------------------- */
-.shipRegForm {
-    width: 30vw;
+.container{
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.order{
+    flex: 2;
+    margin-right: 20px;
+    margin-left: 5vw;
+}
+.orderSummary{
+    flex: 1;
+    width: 25vw;
     padding: 10px;
     margin-bottom: 15px;
-    /* border: 1px solid #ccc; */
-    border: 1px solid var(--charcoal);
+    border: 1px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 50px auto;
+    margin-left: 30px;
+    margin-right: 5vw;
+    flex: 1;
 }
-.shipRegForm label {
-    display: block;
-    margin-bottom: 8px;
+.orderSection{
+    margin-bottom: 10px;
+}
+.orderSeparator{
+    height: 1px;
+    background-color: gray;
+    margin: 10px 0;
+}
+.orderTotal{
     font-weight: bold;
 }
-.shipRegForm input {
+.orderSummary button {
     width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid var(--charcoal);
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.shipRegForm button {
-    width: 100%;
-    background-color: var(--purple);
-    color: #fff;
+    background-color: var(--bs-purple);
+    color: white;
     padding: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    display: inline-block;
+    margin-top: 5px;
 }
-.shipRegForm button:hover {
-    background-color: var(--aqua);
-}
-.shipRegForm .error {
-    color: red;
-    margin-top: -10px;
-    margin-bottom: 10px;
+.orderSummary button:hover {
+    background-color: var(--bs-blue);
 }
 
 /* Footer */

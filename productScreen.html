@@ -6,29 +6,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TD Shop</title>
-  <link href="css/index.css" rel="stylesheet">
+  <link href="css/productScreen.css" rel="stylesheet">
 </head>
-
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
-          Shop</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-    </nav>
+  <header class="black-header">
+    <div class="container">
+        <div class="logo-container">
+            <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+            <h1 class="company-name">TD Shop</h1>
+        </div>
+        <div class="search-container">
+            <form class="search-form">
+                <input type="text" placeholder="Search">
+                <button class="myButton fancyButton" type="submit">Search</button>
+            </form>
+            <button class="myButton" style="margin-right: 15px;margin-left: -10px;"onclick="location.href='cartScreen.html'">Cart</button>
+            <div class="profile-dropdown">
+                <button class="profile-button">User</button>
+                <div class="dropdown-content">
+                    <a href="profileScreen.html">View Profile</a>
+                    <a href="loginScreen.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
   </header>
   <main>
     <a href="homeScreen.html">
-      <button class="btn btn-light my-3">
+      <button class="backButton">
         Back to Home
       </button>
     </a>
-    <div id="product-container" class="product-screen">
+    <div id="product-container" class="product-screen" style="margin-left: 10vw;">
       <div id="card-flex" class="product-screen">
         <h1 id="product-name" class="title"></h1>
         <div id="content-container" class="product-screen">
@@ -39,11 +48,14 @@
             <p id="product-rating" class="whiteText"></p>
             <p id="product-count-in-stock" class="whiteText"></p>
             <input type="number" id="product-qty" min="1" placeholder="1">
-            <button class="btn btn-primary my-3" onclick="addToCart()" id="add-to-cart-button">Add to Cart</button>
+            <button class="addCartButton" onclick="addToCart()" id="add-to-cart-button">Add to Cart</button>
           </div>
         </div>
       </div>
     </div>
+    <footer class="p-footer-color">
+      <p>©2023 TD-Shop</p>
+  </footer>
     <script>
       console.log('hello');
 

@@ -3,39 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/index.css" rel="stylesheet">
+    <link href="css/profileScreen.css" rel="stylesheet">
     <title>Profile</title>
 </head>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
-                Shop</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="nav-align" id="navbarSupportedContent">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+<body>
+    <header class="black-header">
+        <div class="containerNav">
+            <div class="logo-container">
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+                <h1 class="company-name">TD Shop</h1>
+            </div>
+            <div class="search-container">
+                <form class="search-form">
+                    <input type="text" placeholder="Search">
                     <button class="myButton fancyButton" type="submit">Search</button>
                 </form>
-                <div class="dropdown" style="float:right;">
-                    <button class="btn btn-light" id="dropdown-button">USER</button>
-                    <div class="dropdown-content" id="dropdown-content">
-                        <a href="profileScreen.html">Profile Tab</a>
+                <div class="profile-dropdown">
+                    <button class="profile-button">User</button>
+                    <div class="dropdown-content">
+                        <a href="#">View Profile</a>
                         <a href="loginScreen.html">Logout</a>
                     </div>
                 </div>
             </div>
         </div>
-    </nav>
-</header>
-<body>
+    </header>
+
     <div class="container">
         <div class="profileInfo">
-            <h1 class="title">User Profile</h1>
+            <h1 class="purpleTitle">User Profile</h1>
             <form id="registrationForm">
                 <label for="firstName">Name:</label>
                 <input type="text" id="firstName" name="firstName" required>
@@ -69,6 +65,9 @@
             </table>
         </div>
     </div>
+    <footer class="p-footer-color">
+        <p>©2023 TD-Shop</p>
+    </footer>
     <script>
         function validateForm() {
             // Get form inputs
