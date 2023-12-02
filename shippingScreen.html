@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- <meta charset="UTF-8"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,6 +76,17 @@
                 errorMessage.innerHTML = 'Please fill out all fields.';
                 return false; // Prevent form submission
             } else {
+                // Store the shipping information in an object
+                var shippingInfo = {
+                    address: address,
+                    city: city,
+                    postalCode: postalCode,
+                    country: country
+                };
+
+                // Store the shipping information object in localStorage
+                localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo));
+
                 // Redirect to paymentScreen.html
                 window.location.href = 'paymentScreen.html';
                 return true; // Allow form submission
@@ -98,4 +110,5 @@
     </script>
 
 </body>
+
 </html>

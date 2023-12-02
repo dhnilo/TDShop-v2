@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,23 +36,134 @@
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th class="whiteText">Product</th>
                         <th class="whiteText">Price</th>
                         <th class="whiteText">Quantity</th>
                     </tr>
+                    <script>
+                        // Fetch the cart
+                        var cart = JSON.parse(localStorage.getItem('cart'));
+
+                        // Create a variable to store the total price
+                        var itemPrice = 0;
+
+                        // Loop through the cart
+                        for (var i = 0; i < cart.length; i++) {
+                            // Fetch the product img
+                            var productImg = cart[i].image;
+                            // Fetch the product name
+                            var productName = cart[i].name;
+                            // Fetch the product price and convert it to a number
+                            var productPrice = parseFloat(cart[i].price);
+                            // Fetch the quantity
+                            var qty = cart[i].qty;
+                            // Calculate the total price
+                            var totalPrice = productPrice * qty;
+
+                            // Create a new row
+                            var row = document.createElement('tr');
+                            // Create a new column for the product image
+                            var productImgColumn = document.createElement('td');
+                            // Create a new column for the product name
+                            var productNameColumn = document.createElement('td');
+                            // Create a new column for the product price
+                            var productPriceColumn = document.createElement('td');
+                            // Create a new column for the quantity
+                            var qtyColumn = document.createElement('td');
+
+                            // Set the product image
+                            if (productImg) {
+                                productImgColumn.innerHTML = `<img src="${productImg}" alt="${productName}">`;
+                            } else {
+                                productImgColumn.innerHTML = `<img src="default-image.jpg" alt="${productName}">`;
+                            }
+                            // Set the product name
+                            productNameColumn.innerHTML = productName;
+                            // Set the product price
+                            productPriceColumn.innerHTML = productPrice;
+                            // Set the quantity
+                            qtyColumn.innerHTML = qty;
+
+                            // Append the columns to the row
+                            row.appendChild(productImgColumn);
+                            row.appendChild(productNameColumn);
+                            row.appendChild(productPriceColumn);
+                            row.appendChild(qtyColumn);
+
+                            // Append the row to the table
+                            document.querySelector('table').appendChild(row);
+                        }
+
+                        // Create a new row
+                        var row = document.createElement('tr');
+                        // Create a new column for the total price
+                        var totalPriceColumn = document.createElement('td');
+                        // Create a new column for the total price
+                        var totalPriceColumn = document.createElement('td');
+                        // Create a new column for the total price
+                        var totalPriceColumn = document.createElement('td');
+
+                        // Set the total price
+                        totalPriceColumn.innerHTML = totalPrice;
+
+                        // Append the columns to the row
+                        row.appendChild(totalPriceColumn);
+
+                        // Append the row
+                    </script>
                 </thead>
             </table>
         </div>
         <div class="subtotal">
             <h1 class="purpleTitle">Subtotal</h1>
-            <p>insert subtotal here</p>
-            <button class="continueButton" type="button" onclick="submitForm()">Proceed to Checkout</button>
-            <button class="continueButton" type="button" onclick="submitForm()">Continue Shopping</button>
+            <p id="subtotal"></p>
+            <button id='checkout' type="button">Proceed to Checkout</button>
+            <button id='continue' type="button">Continue Shopping</button>
         </div>
-        
+
     </div>
-    <footer class="p-footer-color">
-        <p>©2023 TD-Shop</p>
-    </footer>
+
+    <script>
+        // Initialize the subtotal
+        var subtotal = 0;
+
+        // For each item in the cart
+        cart.forEach(item => {
+            // Convert item.price and item.quantity to numbers
+            var price = parseFloat(item.price);
+            var quantity = parseFloat(item.quantity);
+
+            // Update the subtotal
+            subtotal += price * quantity;
+        });
+
+        // Get the subtotal paragraph
+        var subtotalParagraph = document.getElementById('subtotal');
+
+        // Update the HTML of the subtotal paragraph
+        subtotalParagraph.textContent = 'Subtotal: ' + Number(subtotal).toFixed(2);
+
+        // Add a click event listener to the logout button
+        const checkoutButton = document.getElementById('checkout');
+        if (checkoutButton) {
+            checkoutButton.addEventListener('click', function () {
+                // Check if a user is logged in
+                var user = JSON.parse(localStorage.getItem('isLoggedIn'));
+
+                if (user) {
+                    // Generate a unique order ID
+                    var orderID = Date.now() + '-' + Math.floor(Math.random() * 1000);
+                    localStorage.setItem('orderID', JSON.stringify(orderID));
+                    // If a user is logged in, redirect to shippingScreen.html
+                    window.location.href = 'shippingScreen.html';
+                } else {
+                    // If a user is not logged in, redirect to loginScreen.html
+                    window.location.href = 'loginScreen.html';
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>

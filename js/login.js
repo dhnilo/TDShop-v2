@@ -14,6 +14,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
   .then(data => {
     if (data.success) {
       localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userId', data.userId);
       window.location.href = 'homeScreen.html';
     } else {
       alert('Invalid email or password');

@@ -43,12 +43,62 @@
         <p>©2023 TD-Shop</p>
     </footer>
     <script>
-        function submitForm() {
-            // Perform form validation if needed
+        // Fetch the cart and shipping information
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        var shippingInfo = JSON.parse(localStorage.getItem('shippingInfo'));
 
-            // Redirect to placeOrder.html
-            window.location.href = "placeOrderScreen.html";
-        }
+        // Create the order object
+        var order = {
+            orderID: localStorage.getItem('orderID'),
+            items: cart.items,
+            shippingInfo: shippingInfo
+        };
+
+        // Get the shipping information section, order table, and order summary
+        var shippingInfoSection = document.querySelector('.shipping-info');
+        var orderTable = document.querySelector('.order table');
+        var orderSummary = document.querySelector('.order-summary');
+
+        // Initialize the item price
+        var itemPrice = 0;
+
+        // For each item in the order
+        order.items.forEach(item => {
+            // Create a table row
+            var row = document.createElement('tr');
+            row.innerHTML = `
+    <td><img src="${item.image}" alt="${item.title}"></td>
+    <td>${item.title}</td>
+    <td>${item.price}</td>
+  `;
+
+            // Add the table row to the order table
+            orderTable.appendChild(row);
+
+            // Update the item price
+            itemPrice += item.price * item.quantity;
+        });
+
+        // Calculate the shipping price, tax, and total price
+        var shippingPrice = itemPrice < 50 ? itemPrice * 0.05 : 0;
+        var tax = itemPrice * 0.1;
+        var totalPrice = itemPrice + shippingPrice + tax;
+
+        // Update the HTML of the shipping information section
+        shippingInfoSection.innerHTML = `
+  <p>Address: ${order.shippingInfo.address}</p>
+  <p>City: ${order.shippingInfo.city}</p>
+  <p>Postal Code: ${order.shippingInfo.postalCode}</p>
+  <p>Country: ${order.shippingInfo.country}</p>
+`;
+
+        // Update the HTML of the order summary
+        orderSummary.innerHTML = `
+  <p>Item price: ${itemPrice}</p>
+  <p>Shipping price: ${shippingPrice}</p>
+  <p>Tax: ${tax}</p>
+  <p>Total price: ${totalPrice}</p>
+`;
     </script>
 </body>
 

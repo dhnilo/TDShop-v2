@@ -46,8 +46,8 @@
                         dropdownContent.innerHTML = '';
                         if (isLoggedIn) {
                             // If the user is logged in, show the profile tab and the logout button
-                            dropdownContent.innerHTML += '<a href="#">Profile Tab</a>';
-                            dropdownContent.innerHTML += '<a href="#" id="logout">Logout</a>';
+                            dropdownContent.innerHTML += '<a href="profileScreen.html">Profile Tab</a>';
+                            dropdownContent.innerHTML += '<a href="homeScreen.html" id="logout">Logout</a>';
                         } else {
                             // If the user is not logged in, show the login button
                             dropdownContent.innerHTML += '<a href="loginScreen.html">Log In</a>';
@@ -98,6 +98,7 @@
                         var productImage = document.createElement('img');
                         productImage.src = product.image;
                         productImage.className = 'img-fit'; // Add the 'img-fit' class to the productImage
+                        productImage.id = 'product-image';
                         productLink.appendChild(productImage);
                         productDiv.appendChild(productLink);
 
@@ -130,7 +131,18 @@
                         addToCartButton.textContent = 'Add to Cart';
                         addToCartButton.className = 'myButton'; // Add the 'btn' class to the addToCartButton
                         addToCartButton.addEventListener('click', function () {
-                            addToCart(product);
+                            var productImageElement = document.getElementById('product-image');
+                            var productImageUrl = productImageElement ? productImageElement.src : 'default-image.jpg';
+
+                            var item = {
+                                id: product.id,
+                                name: product.name,
+                                price: product.price,
+                                image: productImageUrl,
+                                qty: 1
+                            };
+
+                            addToCart(item);
                             alert('Added one item to cart!');
                         });
                         productDiv.appendChild(addToCartButton);

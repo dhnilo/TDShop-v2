@@ -47,8 +47,8 @@
             <p id="product-price" class="whiteText"></p>
             <p id="product-rating" class="whiteText"></p>
             <p id="product-count-in-stock" class="whiteText"></p>
-            <input type="number" id="product-qty" min="1" placeholder="1">
-            <button class="addCartButton" onclick="addToCart()" id="add-to-cart-button">Add to Cart</button>
+            <input type="number" id="product-qty" min="1" placeholder="1" value=1>
+            <button class="btn btn-primary my-3" onclick="addToCart()" id="add-to-cart-button">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -57,7 +57,6 @@
       <p>©2023 TD-Shop</p>
   </footer>
     <script>
-      console.log('hello');
 
       window.onload = function () {
         const id = getProductIdFromUrl();
@@ -73,7 +72,6 @@
         fetch('index.php?id=' + productId)
           .then(response => response.json())
           .then(product => {
-            console.log(product);
             displayProduct(product);
           });
       }
@@ -97,24 +95,33 @@
         }
 
         if (productPrice) {
-          productPrice.textContent = `$${product.price}`;
+          productPrice.textContent = '$' + `${product.price}`;
         }
       }
-    </script>
-    <script>
+
       function addToCart() {
         const id = getProductIdFromUrl();
         let qty = document.getElementById('product-qty').value;
         qty = qty && !isNaN(qty) ? Number(qty) : 1;
         const cart = getCart();
         const existingItem = cart.find(item => item.id == id);
+
+        productPrice = document.getElementById('product-price').textContent;
+        const price = parseFloat(productPrice.replace('$', '')); // Remove the dollar sign and convert to a number
+        var productImageElement = document.getElementById('product-image');
+        var productImageUrl = productImageElement ? productImageElement.src : 'default-image.jpg';
+
         if (existingItem) {
           existingItem.qty += qty;
         } else {
-          cart.push({
-            id: id,
-            qty: qty
-          });
+          cart.push(
+            item = {
+              id: id,
+              name: document.getElementById('product-name').textContent,
+              price: price, // Use product.price
+              image: productImageUrl,
+              qty: qty
+            });
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         alert('Added to cart');
