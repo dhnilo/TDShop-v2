@@ -12150,3 +12150,44 @@ th{
 .subtotal button:hover {
   background-color: var(--bs-blue);
 }
+
+.orderSummary{
+  flex: 1;
+  width: 25vw;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  margin-left: 30px;
+  flex: 1;
+}
+.orderSection{
+  margin-bottom: 10px;
+}
+.orderSeparator{
+  height: 1px;
+  background-color: gray;
+  margin: 10px 0;
+}
+.orderTotal{
+  font-weight: bold;
+}
+.orderSummary button {
+  width: 100%;
+  background-color: var(--bs-purple);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 5px;
+}
+.orderSummary button:hover {
+  background-color: var(--bs-blue);
+}

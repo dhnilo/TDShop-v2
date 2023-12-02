@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/index.css" rel="stylesheet">
+    <title>Your Order</title>
+</head>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop" class="logo">TD
+                Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="nav-align" id="navbarSupportedContent">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="myButton fancyButton" type="submit">Search</button>
+                </form>
+                <div class="dropdown" style="float:right;">
+                    <button class="btn btn-light" id="dropdown-button">USER</button>
+                    <div class="dropdown-content" id="dropdown-content">
+                        <a href="profileScreen.html">Profile Tab</a>
+                        <a href="loginScreen.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        <div class="order">
+            <h1 class="title">Your Order ID: __number___ </h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="whiteText">Product</th>
+                        <th class="whiteText">Price</th>
+                        <th class="whiteText">Quantity</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="orderSummary">
+            <h1 class="purpleTitle">Order Summary</h1>
+            <div class="orderSection">
+                <p>insert item subtotal</p>
+            </div>
+            <div class="orderSeparator"></div>
+            <div class="orderSection">
+                <p>insert shipping</p>
+            </div>
+            <div class="orderSeparator"></div>
+            <div class="orderSection">
+                <p>insert tax</p>
+            </div>
+            <div class="orderSeparator"></div>
+            <div class="orderSection">
+                <p>insert total</p>
+            </div>
+            <div class="orderSeparator"></div>
+            <button type="button" onclick="submitForm()">Put PayPal here</button>
+        </div>
+        
+    </div>
+</body>
+</html>
