@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/cartScreen.css" rel="stylesheet">
+    <script src="js/logout.js"></script>
     <title>Cart</title>
 </head>
+
 <body>
     <header class="black-header">
         <div class="containerNav">
             <div class="logo-container">
-                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo"
+                        class="logo"></a>
                 <h1 class="company-name">TD Shop</h1>
             </div>
             <div class="search-container">
@@ -48,51 +51,59 @@
                         // Create a variable to store the total price
                         var itemPrice = 0;
 
-                        // Loop through the cart
-                        for (var i = 0; i < cart.length; i++) {
-                            // Fetch the product img
-                            var productImg = cart[i].image;
-                            // Fetch the product name
-                            var productName = cart[i].name;
-                            // Fetch the product price and convert it to a number
-                            var productPrice = parseFloat(cart[i].price);
-                            // Fetch the quantity
-                            var qty = cart[i].qty;
-                            // Calculate the total price
-                            var totalPrice = productPrice * qty;
+                        if (cart) {
+                            if (cart.length > 0) {
+                                // Loop through the cart
+                                for (var i = 0; i < cart.length; i++) {
+                                    // Fetch the product img
+                                    var productImg = cart[i].image;
+                                    // Fetch the product name
+                                    var productName = cart[i].name;
+                                    // Fetch the product price and convert it to a number
+                                    var productPrice = parseFloat(cart[i].price);
+                                    // Fetch the quantity
+                                    var qty = cart[i].qty;
+                                    // Calculate the total price
+                                    var totalPrice = productPrice * qty;
 
-                            // Create a new row
-                            var row = document.createElement('tr');
-                            // Create a new column for the product image
-                            var productImgColumn = document.createElement('td');
-                            // Create a new column for the product name
-                            var productNameColumn = document.createElement('td');
-                            // Create a new column for the product price
-                            var productPriceColumn = document.createElement('td');
-                            // Create a new column for the quantity
-                            var qtyColumn = document.createElement('td');
+                                    // Create a new row
+                                    var row = document.createElement('tr');
+                                    // Create a new column for the product image
+                                    var productImgColumn = document.createElement('td');
+                                    productImgColumn.className = 'img-fit';
+                                    // Create a new column for the product name
+                                    var productNameColumn = document.createElement('td');
+                                    // Create a new column for the product price
+                                    var productPriceColumn = document.createElement('td');
+                                    // Create a new column for the quantity
+                                    var qtyColumn = document.createElement('td');
 
-                            // Set the product image
-                            if (productImg) {
-                                productImgColumn.innerHTML = `<img src="${productImg}" alt="${productName}">`;
+                                    // Set the product image
+                                    if (productImg) {
+                                        productImgColumn.innerHTML = `<img src="${productImg}" alt="${productName}" style="max-width: 100px; height: auto;">`;
+                                    } else {
+                                        productImgColumn.innerHTML = `<img src="default-image.jpg" alt="${productName}" style="max-width: 100px; height: auto;">`;
+                                    }
+                                    // Set the product name
+                                    productNameColumn.innerHTML = productName;
+                                    // Set the product price
+                                    productPriceColumn.innerHTML = productPrice;
+                                    // Set the quantity
+                                    qtyColumn.innerHTML = qty;
+
+                                    // Append the columns to the row
+                                    row.appendChild(productImgColumn);
+                                    row.appendChild(productNameColumn);
+                                    row.appendChild(productPriceColumn);
+                                    row.appendChild(qtyColumn);
+
+                                    // Append the row to the table
+                                    document.querySelector('table').appendChild(row);
+                                }
                             } else {
-                                productImgColumn.innerHTML = `<img src="default-image.jpg" alt="${productName}">`;
+                                // If the cart is empty, display a message
+                                document.querySelector('table').innerHTML = '<tr><td colspan="4">Your cart is empty</td></tr>';
                             }
-                            // Set the product name
-                            productNameColumn.innerHTML = productName;
-                            // Set the product price
-                            productPriceColumn.innerHTML = productPrice;
-                            // Set the quantity
-                            qtyColumn.innerHTML = qty;
-
-                            // Append the columns to the row
-                            row.appendChild(productImgColumn);
-                            row.appendChild(productNameColumn);
-                            row.appendChild(productPriceColumn);
-                            row.appendChild(qtyColumn);
-
-                            // Append the row to the table
-                            document.querySelector('table').appendChild(row);
                         }
 
                         // Create a new row
@@ -128,15 +139,25 @@
         // Initialize the subtotal
         var subtotal = 0;
 
-        // For each item in the cart
-        cart.forEach(item => {
-            // Convert item.price and item.quantity to numbers
-            var price = parseFloat(item.price);
-            var quantity = parseFloat(item.quantity);
+        // Retrieve the cart from local storage
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            // Update the subtotal
-            subtotal += price * quantity;
-        });
+        if (cart) {
+            if (cart.length > 0) {
+                // For each item in the cart
+                cart.forEach(item => {
+                    // Convert item.price and item.quantity to numbers
+                    var price = parseFloat(item.price);
+                    var quantity = parseFloat(item.qty);
+
+                    // Check if price and quantity are valid numbers
+                    if (!isNaN(price) && !isNaN(quantity)) {
+                        // Update the subtotal
+                        subtotal += price * quantity;
+                    }
+                });
+            }
+        }
 
         // Get the subtotal paragraph
         var subtotalParagraph = document.getElementById('subtotal');
@@ -146,6 +167,14 @@
 
         // Add a click event listener to the logout button
         const checkoutButton = document.getElementById('checkout');
+
+        if (cart && cart.length > 0) {
+            // If the cart is not empty, enable the "Proceed to Checkout" button
+            checkoutButton.disabled = false;
+        } else {
+            // If the cart is empty, disable the "Proceed to Checkout" button
+            checkoutButton.disabled = true;
+        }
         if (checkoutButton) {
             checkoutButton.addEventListener('click', function () {
                 // Check if a user is logged in

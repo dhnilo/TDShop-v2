@@ -7,29 +7,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TD Shop</title>
   <link href="css/productScreen.css" rel="stylesheet">
+  <script src="js/logout.js"></script>
 </head>
 
 <body>
   <header class="black-header">
     <div class="container">
-        <div class="logo-container">
-            <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
-            <h1 class="company-name">TD Shop</h1>
+      <div class="logo-container">
+        <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+        <h1 class="company-name">TD Shop</h1>
+      </div>
+      <div class="search-container">
+        <form class="search-form">
+          <input type="text" placeholder="Search">
+          <button class="myButton fancyButton" type="submit">Search</button>
+        </form>
+        <button class="myButton" style="margin-right: 15px;margin-left: -10px;"
+          onclick="location.href='cartScreen.html'">Cart</button>
+        <div class="profile-dropdown">
+          <button class="profile-button">User</button>
+          <div id='dropdown-content' class="dropdown-content">
+            <a href="profileScreen.html">View Profile</a>
+            <a href="homeScreen.html" onclick="logout()">Logout</a>
+          </div>
         </div>
-        <div class="search-container">
-            <form class="search-form" id="search-form">
-                <input type="text" placeholder="Search" id="search">
-                <button class="myButton fancyButton" id="fancy-button" type="submit">Search</button>
-            </form>
-            <button class="myButton" style="margin-right: 15px;margin-left: -10px;"onclick="location.href='cartScreen.html'">Cart</button>
-            <div class="profile-dropdown">
-                <button class="profile-button" id="profile-button">User</button>
-                <div class="dropdown-content" id="dropdown-content">
-                    <a href="profileScreen.html">View Profile</a>
-                    <a href="loginScreen.html" onclick="logout()">Logout</a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
 </header>
   <main>
@@ -56,11 +58,37 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/cart.js"></script>
+    <footer class="p-footer-color">
+      <p>©2023 TD-Shop</p>
+    </footer>
     <script>
-
       window.onload = function () {
         const id = getProductIdFromUrl();
         fetchProduct(id);
+
+        // Check the login status
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const dropdownContent = document.getElementById('dropdown-content');
+        dropdownContent.innerHTML = '';
+        if (isLoggedIn) {
+          // If the user is logged in, show the profile tab and the logout button
+          dropdownContent.innerHTML += '<a href="profileScreen.html">Profile Tab</a>';
+          dropdownContent.innerHTML += '<a href="homeScreen.html" id="logout">Logout</a>';
+        } else {
+          // If the user is not logged in, show the login button
+          dropdownContent.innerHTML += '<a href="loginScreen.html">Log In</a>';
+        }
+
+        // Add a click event listener to the logout button
+        const logoutButton = document.getElementById('logout');
+        if (logoutButton) {
+          logoutButton.addEventListener('click', function () {
+            // Clear the login status
+            logout();
+            // Refresh the page
+            location.reload();
+          });
+        }
       };
 
       function getProductIdFromUrl() {

@@ -5,13 +5,15 @@
     <title>TD Shop</title>
     <link href="css/homeScreen.css" rel="stylesheet">
     <!-- <script src="index.js" type="module"></script> -->
+    <script src="js/logout.js"></script>
 </head>
 
 <body>
     <header class="black-header">
         <div class="container">
             <div class="logo-container">
-                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo"
+                        class="logo"></a>
                 <h1 class="company-name">TD Shop</h1>
             </div>
             <div class="search-container">
@@ -19,12 +21,13 @@
                     <input type="text" placeholder="Search" id="search">
                     <button class="myButton fancyButton" id="fancy-button" type="submit">Search</button>
                 </form>
-                <button class="myButton" style="margin-right: 15px;margin-left: -10px;"onclick="location.href='cartScreen.html'">Cart</button>
+                <button class="myButton" style="margin-right: 15px;margin-left: -10px;"
+                    onclick="location.href='cartScreen.html'">Cart</button>
                 <div class="profile-dropdown">
                     <button class="profile-button" id="profile-button">User</button>
                     <div class="dropdown-content" id="dropdown-content">
                         <a href="profileScreen.html">View Profile</a>
-                        <a href="loginScreen.html" onclick="logout()">Logout</a>
+                        <a href="homeScreen.html" onclick="logout()">Logout</a>
                     </div>
                 </div>
             </div>
@@ -58,8 +61,7 @@
                         if (logoutButton) {
                             logoutButton.addEventListener('click', function () {
                                 // Clear the login status
-                                localStorage.setItem('isLoggedIn', false);
-                                clearCart();
+                                logout();
                                 // Refresh the page
                                 location.reload();
                             });
@@ -97,8 +99,8 @@
 
                         var productImage = document.createElement('img');
                         productImage.src = product.image;
+                        productImage.id = 'product-image-' + product.id;
                         productImage.className = 'img-fit'; // Add the 'img-fit' class to the productImage
-                        productImage.id = 'product-image';
                         productLink.appendChild(productImage);
                         productDiv.appendChild(productLink);
 
@@ -121,8 +123,9 @@
                         var priceButtonWrapper = document.createElement('div'); // Add this to create the wrapper div
                         priceButtonWrapper.className = 'price-button-wrapper';
 
-                        var productPrice = document.createElement('p'); // Add this to create the product price
+                        var productPrice = document.createElement('p');
                         productPrice.textContent = '$' + product.price;
+                        productPrice.dataset.price = product.price;
                         productPrice.id = 'product-price';
                         productPrice.className = 'product-price'; // Add the 'product-price' class to the productPrice
                         productDiv.appendChild(productPrice);
@@ -131,13 +134,14 @@
                         addToCartButton.textContent = 'Add to Cart';
                         addToCartButton.className = 'myButton'; // Add the 'btn' class to the addToCartButton
                         addToCartButton.addEventListener('click', function () {
-                            var productImageElement = document.getElementById('product-image');
+                            var productImageElement = document.getElementById('product-image-' + product.id);
                             var productImageUrl = productImageElement ? productImageElement.src : 'default-image.jpg';
+                            var price = parseFloat(productPrice.dataset.price);
 
                             var item = {
                                 id: product.id,
                                 name: product.name,
-                                price: product.price,
+                                price: price,
                                 image: productImageUrl,
                                 qty: 1
                             };
@@ -168,14 +172,14 @@
                         updateProductList(filteredProducts);
                     }
 
-                    document.getElementById('profile-button').addEventListener('click', function(event) {
+                    document.getElementById('profile-button').addEventListener('click', function (event) {
                         document.getElementById('dropdown-content').classList.toggle('show');
                         event.stopPropagation();
-                      });
-                      
-                      document.addEventListener('click', function() {
+                    });
+
+                    document.addEventListener('click', function () {
                         document.getElementById('dropdown-content').classList.remove('show');
-                      });
+                    });
                 </script>
             </div>
         </div>

@@ -6,6 +6,10 @@ $password = "root";
 $dbname = "TDShop";
 $port = "8889";
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Connect to the database
 $db = new mysqli($servername, $username, $password, $dbname, $port);
 
@@ -48,11 +52,11 @@ if ($result->num_rows > 0) {
   // Check if the entered password matches the hashed password in the database
   if (password_verify($password, $user['password'])) {
     // The passwords match
-    echo json_encode(['success' => true]);
-  } else {
+    echo json_encode(['success' => true, 'userId' => $user['id']]);
+} else {
     // The passwords don't match
     echo json_encode(['success' => false]);
-  }
+}
 } else {
   // No user was found
   echo json_encode(['success' => false]);

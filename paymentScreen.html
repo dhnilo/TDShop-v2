@@ -4,14 +4,15 @@
 <head>
     <title>Payment</title>
     <link href="css/paymentScreen.css" rel="stylesheet">
-    <script src="products.js" type="module"></script>
-    <script src="index.js" type="module"></script>
+    <script src="js/logout.js"></script>
 </head>
+
 <body>
     <header class="black-header">
         <div class="container">
             <div class="logo-container">
-                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo"
+                        class="logo"></a>
                 <h1 class="company-name">TD Shop</h1>
             </div>
             <div class="search-container">
@@ -37,7 +38,7 @@
             <li style="display: inline-block; margin-right: 20px;"><p class="whiteText">Payment</p></li>
             <li style="display: inline-block;"><p class="whiteText">Place Order</p></li>
         </ul>
-        <form style="text-align:center;">
+        <form style="text-align:center;" onsubmit="submitForm(event)">
             <h1 class="title" style="text-align:center;">Payment Method</h1>
             <h3 class="whiteText" style="text-align:center;">Select Payment Method</h2>
             <div class="whiteText">
@@ -53,17 +54,16 @@
         <p>©2023 TD-Shop</p>
     </footer>
     <script>
-        // Add a click event listener to the logout button
-      const logoutButton = document.getElementById('logout');
-      if (logoutButton) {
-        logoutButton.addEventListener('click', function () {
-          // Clear the login status
-          localStorage.setItem('isLoggedIn', false);
-          clearCart();
-          // Refresh the page
-          location.reload();
-        });
-      }
+        function submitForm(event) {
+            // Prevent the form submission from causing a page refresh
+            event.preventDefault();
+
+            // Perform form validation if needed
+
+            // Redirect to placeOrderScreen.html
+            window.location.href = "placeOrderScreen.html";
+            return true;
+        }
     </script>
 </body>
 

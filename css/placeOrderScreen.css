@@ -220,3 +220,14 @@ footer{
     text-align: center !important;
     justify-content: center !important;
 }
+
+.img-fit {
+    width: 150px;
+    height: 150px;
+}
+
+.img-fit img {
+    width: 100%;
+    height: auto;
+    object-fit: scale-down;
+}

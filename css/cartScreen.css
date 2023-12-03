@@ -284,3 +284,9 @@ footer{
     text-align: center !important;
     justify-content: center !important;
 }
+
+.item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: scale-down;
+}

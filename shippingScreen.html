@@ -5,13 +5,16 @@
     <!-- <meta charset="UTF-8"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/shippingScreen.css" rel="stylesheet">
+    <script src="js/logout.js"></script>
     <title>Shipping</title>
 </head>
+
 <body>
     <header class="black-header">
         <div class="container">
             <div class="logo-container">
-                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo"
+                        class="logo"></a>
                 <h1 class="company-name">TD Shop</h1>
             </div>
             <div class="search-container">
@@ -94,18 +97,21 @@
             }
         }
 
-        // Enable the "Continue" button only if all required fields are filled
         document.addEventListener('input', function () {
             var continueButton = document.getElementById('continueButton');
-            var address = document.getElementById('address').value;
-            var city = document.getElementById('city').value;
-            var postalCode = document.getElementById('postalCode').value;
-            var country = document.getElementById('country').value;
 
-            if (address !== '' && city !== '' && postalCode !== '' && country !== '') {
-                continueButton.disabled = false;
-            } else {
-                continueButton.disabled = true;
+            // Check if the continueButton exists
+            if (continueButton) {
+                var address = document.getElementById('address').value;
+                var city = document.getElementById('city').value;
+                var postalCode = document.getElementById('postalCode').value;
+                var country = document.getElementById('country').value;
+
+                if (address !== '' && city !== '' && postalCode !== '' && country !== '') {
+                    continueButton.disabled = false;
+                } else {
+                    continueButton.disabled = true;
+                }
             }
         });
 

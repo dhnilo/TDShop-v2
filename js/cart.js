@@ -1,12 +1,18 @@
-// Add an item to the cart
 function addToCart(item) {
-  // Get the cart from localStorage
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  // Get the cart from local storage
+  var cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // Add the item to the cart
-  cart.push(item);
+  // Check if the item is already in the cart
+  var index = cart.findIndex(cartItem => cartItem.id === item.id);
+  if (index !== -1) {
+      // If the item is already in the cart, increase the quantity
+      cart[index].qty += 1;
+  } else {
+      // If the item is not in the cart, add it
+      cart.push(item);
+  }
 
-  // Store the cart in localStorage
+  // Save the cart back to local storage
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
