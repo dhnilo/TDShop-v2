@@ -23,7 +23,7 @@
                     <button class="profile-button">User</button>
                     <div class="dropdown-content">
                         <a href="profileScreen.html">View Profile</a>
-                        <a href="loginScreen.html">Logout</a>
+                        <a href="loginScreen.html" onclick="logout()">Logout</a>
                     </div>
                 </div>
             </div>
@@ -31,11 +31,11 @@
     </header>
     <main>
         <br>
-        <ul style="text-align:center;">
-            <a class="whiteText" style="margin-right: 20px;" href="loginScreen.html">Login</a>
-            <a class="whiteText" style="margin-right: 20px;" href="shippingScreen.html">Shipping</a>
-            <a class="whiteText" style="margin-right: 20px;" href="paymentScreen.html">Payment</a>
-            <a class="whiteText" style="margin-right: 20px;" href="paymentScreen.html">Place Order</a>
+        <ul style="text-align: center; list-style: none; padding: 0;">
+            <li style="display: inline-block; margin-right: 20px;"><a class="whiteText" href="loginScreen.html">Login</a></li>
+            <li style="display: inline-block; margin-right: 20px;"><a class="whiteText" href="shippingScreen.html">Shipping</a></li>
+            <li style="display: inline-block; margin-right: 20px;"><p class="whiteText">Payment</p></li>
+            <li style="display: inline-block;"><p class="whiteText">Place Order</p></li>
         </ul>
         <form style="text-align:center;">
             <h1 class="title" style="text-align:center;">Payment Method</h1>
@@ -46,21 +46,24 @@
                     PayPal or CreditCard
                 </label>
             </div>
-            <button type="submit" class="continueButton" style="padding: 10px;margin-top:5px;" onclick="submitForm()">Continue
-            </button>
+            <a href="placeOrderScreen.html"><button type="button" class="continueButton" style="padding: 10px;margin-top:5px;">Continue</button>
         </form>
     </main>
     <footer class="p-footer-color">
         <p>©2023 TD-Shop</p>
     </footer>
     <script>
-        function submitForm() {
-            // Perform form validation if needed
-
-            // Redirect to placeOrder.html
-            window.location.href = "placeOrderScreen.html";
-            return true;
-        }
+        // Add a click event listener to the logout button
+      const logoutButton = document.getElementById('logout');
+      if (logoutButton) {
+        logoutButton.addEventListener('click', function () {
+          // Clear the login status
+          localStorage.setItem('isLoggedIn', false);
+          clearCart();
+          // Refresh the page
+          location.reload();
+        });
+      }
     </script>
 </body>
 

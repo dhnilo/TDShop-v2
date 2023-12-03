@@ -24,7 +24,7 @@
                     <button class="profile-button" id="profile-button">User</button>
                     <div class="dropdown-content" id="dropdown-content">
                         <a href="profileScreen.html">View Profile</a>
-                        <a href="loginScreen.html">Logout</a>
+                        <a href="loginScreen.html" onclick="logout()">Logout</a>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                         if (logoutButton) {
                             logoutButton.addEventListener('click', function () {
                                 // Clear the login status
-                                localStorage.removeItem('isLoggedIn');
+                                localStorage.setItem('isLoggedIn', false);
                                 clearCart();
                                 // Refresh the page
                                 location.reload();

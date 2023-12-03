@@ -23,7 +23,7 @@
                     <button class="profile-button">User</button>
                     <div class="dropdown-content">
                         <a href="profileScreen.html">View Profile</a>
-                        <a href="loginScreen.html">Logout</a>
+                        <a href="loginScreen.html" onclick="logout()">Logout</a>
                     </div>
                 </div>
             </div>
@@ -161,6 +161,14 @@
                     // If a user is not logged in, redirect to loginScreen.html
                     window.location.href = 'loginScreen.html';
                 }
+            });
+        }
+
+        const continueButton = document.getElementById('continue');
+        if (continueButton) {
+            continueButton.addEventListener('click', function () {
+                // Redirect to homeScreen.html
+                window.location.href = 'homeScreen.html';
             });
         }
     </script>

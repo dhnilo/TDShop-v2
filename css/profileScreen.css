@@ -116,6 +116,10 @@ main {
     color: white;
     rotate: 360deg;
 }
+.myButton:hover {
+    background-color: #18bc9c;
+    color: white;
+}
 
 
 

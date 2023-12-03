@@ -8,6 +8,7 @@
   <title>TD Shop</title>
   <link href="css/productScreen.css" rel="stylesheet">
 </head>
+
 <body>
   <header class="black-header">
     <div class="container">
@@ -16,21 +17,21 @@
             <h1 class="company-name">TD Shop</h1>
         </div>
         <div class="search-container">
-            <form class="search-form">
-                <input type="text" placeholder="Search">
-                <button class="myButton fancyButton" type="submit">Search</button>
+            <form class="search-form" id="search-form">
+                <input type="text" placeholder="Search" id="search">
+                <button class="myButton fancyButton" id="fancy-button" type="submit">Search</button>
             </form>
             <button class="myButton" style="margin-right: 15px;margin-left: -10px;"onclick="location.href='cartScreen.html'">Cart</button>
             <div class="profile-dropdown">
-                <button class="profile-button">User</button>
-                <div class="dropdown-content">
+                <button class="profile-button" id="profile-button">User</button>
+                <div class="dropdown-content" id="dropdown-content">
                     <a href="profileScreen.html">View Profile</a>
-                    <a href="loginScreen.html">Logout</a>
+                    <a href="loginScreen.html" onclick="logout()">Logout</a>
                 </div>
             </div>
         </div>
     </div>
-  </header>
+</header>
   <main>
     <a href="homeScreen.html">
       <button class="backButton">
@@ -53,9 +54,8 @@
         </div>
       </div>
     </div>
-    <footer class="p-footer-color">
-      <p>©2023 TD-Shop</p>
-  </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/cart.js"></script>
     <script>
 
       window.onload = function () {
@@ -135,8 +135,41 @@
           return [];
         }
       }
+
+      function clearCart() {
+        localStorage.removeItem('cart');
+        localStorage.setItem('isLoggedIn', false);
+      }
+
+      // Check the login status
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      const dropdownContent = document.getElementById('dropdown-content');
+      dropdownContent.innerHTML = '';
+      if (isLoggedIn) {
+        // If the user is logged in, show the profile tab and the logout button
+        dropdownContent.innerHTML += '<a href="profileScreen.html">Profile Tab</a>';
+        dropdownContent.innerHTML += '<a href="homeScreen.html" id="logout">Logout</a>';
+      } else {
+        // If the user is not logged in, show the login button
+        dropdownContent.innerHTML += '<a href="loginScreen.html">Log In</a>';
+      }
+
+      // Add a click event listener to the logout button
+      const logoutButton = document.getElementById('logout');
+      if (logoutButton) {
+        logoutButton.addEventListener('click', function () {
+          // Clear the login status
+          localStorage.setItem('isLoggedIn', false);
+          clearCart();
+          // Refresh the page
+          location.reload();
+        });
+      }
     </script>
   </main>
+  <footer class="p-footer-color">
+    <p>©2023 TD-Shop</p>
+  </footer>
 </body>
 
 </html>
