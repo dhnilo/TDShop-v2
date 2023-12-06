@@ -241,19 +241,19 @@ button {
 
 .img-fit {
     display: block;
-    margin-left: auto;
+    margin-left: 5vw;
     margin-right: auto;
-    width: 250px;
-    height: 250px;
-    object-fit: scale-down;
+    width: 30vw;
+    height: 30vh;
+    object-fit: scale-down; 
 }
 
 .product-screen #product-container {
     display: flex;
     position: relative;
     flex-direction: column;
-    align-items: flex-start; /* Aligns items to the left */
-    width: 800px;
+    align-items: flex-start;  /*Aligns items to the left */
+
 }
 
 .product-screen #card-header {
@@ -283,7 +283,9 @@ button {
     background:#1a1e21;
     border-radius: 5px;
     padding: 2rem;
+    justify-content: space-between;
 }
+
 
 @media screen and (max-width: 768px) {
     .product-screen #card-flex {
@@ -309,18 +311,17 @@ button {
     object-fit: scale-down;
 }
 
-.product-scrren .title{
+.product-screen .title{
     margin-top: 0;
     margin-bottom: 1.2rem;
     font-weight: 500;
     line-height: 1.2;
     color: white;
-    text-shadow: 2px 2px var(--bs-purple);
+    text-shadow: 2px 2px var(--purple);
 }
 
 .product-screen .price-button-wrapper {
     grid-area: button;
-    /* ... rest of your CSS ... */
 }
 
 .product-screen #product-description-container {

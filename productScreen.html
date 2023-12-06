@@ -40,7 +40,7 @@
         Back to Home
       </button>
     </a>
-    <div id="product-container" class="product-screen" style="margin-left: 10vw;">
+    <div id="product-container" class="product-screen" style="margin-left: 10vw; margin-right: 10vw;">
       <div id="card-flex" class="product-screen">
         <h1 id="product-name" class="title"></h1>
         <div id="content-container" class="product-screen">
@@ -51,7 +51,8 @@
             <p id="product-rating" class="whiteText"></p>
             <p id="product-count-in-stock" class="whiteText"></p>
             <input type="number" id="product-qty" min="1" placeholder="1" value=1>
-            <button class="btn btn-primary my-3" onclick="addToCart()" id="add-to-cart-button">Add to Cart</button>
+            <button class="addCartButton" onclick="addToCart()" id="add-to-cart-button">Add to Cart</button>
+            <p class="whiteText">Quantity: <span id="stock-quantity"></span></p>
           </div>
         </div>
       </div>
@@ -101,6 +102,11 @@
           .then(response => response.json())
           .then(product => {
             displayProduct(product);
+            availableStock = product.countInStock;
+            updateStockUI();
+          })
+          .catch(error => {
+            console.error('Error fetching product details', error);
           });
       }
 
@@ -131,29 +137,41 @@
         const id = getProductIdFromUrl();
         let qty = document.getElementById('product-qty').value;
         qty = qty && !isNaN(qty) ? Number(qty) : 1;
-        const cart = getCart();
-        const existingItem = cart.find(item => item.id == id);
+        if(qty > 0 && qty <= availableStock) {
+          const cart = getCart();
+          const existingItem = cart.find(item => item.id == id);
 
-        productPrice = document.getElementById('product-price').textContent;
-        const price = parseFloat(productPrice.replace('$', '')); // Remove the dollar sign and convert to a number
-        var productImageElement = document.getElementById('product-image');
-        var productImageUrl = productImageElement ? productImageElement.src : 'default-image.jpg';
+          productPrice = document.getElementById('product-price').textContent;
+          const price = parseFloat(productPrice.replace('$', '')); // Remove the dollar sign and convert to a number
+          var productImageElement = document.getElementById('product-image');
+          var productImageUrl = productImageElement ? productImageElement.src : 'default-image.jpg';
 
-        if (existingItem) {
-          existingItem.qty += qty;
-        } else {
-          cart.push(
-            item = {
-              id: id,
-              name: document.getElementById('product-name').textContent,
-              price: price, // Use product.price
-              image: productImageUrl,
-              qty: qty
-            });
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert('Added to cart');
+          if (existingItem) {
+            existingItem.qty += qty;
+          } else {
+            cart.push(
+              item = {
+                id: id,
+                name: document.getElementById('product-name').textContent,
+                price: price, // Use product.price
+                image: productImageUrl,
+                qty: qty
+              });
+          }
+          //document.getElementById('stock-quantity').inertText = availableStock - qty;
+          availableStock -= qty;
+          updateStockUI();
+          localStorage.setItem('cart', JSON.stringify(cart));
+          alert('Added to cart');
+      } else {
+        alert('Invalid quantity, please enter a number between 1 and ' + availableStock);
       }
+    }
+
+    function updateStockUI() {
+      document.getElementById('stock-quantity').innerText = availableStock;
+      document.getElementById('product-qty').max = availableStock;
+  }
 
       function getCart() {
         const cart = localStorage.getItem('cart');
@@ -195,9 +213,6 @@
       }
     </script>
   </main>
-  <footer class="p-footer-color">
-    <p>©2023 TD-Shop</p>
-  </footer>
 </body>
 
 </html>
