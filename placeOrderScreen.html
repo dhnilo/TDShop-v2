@@ -4,7 +4,7 @@
 <head>
     <title>Place Order</title>
     <link href="css/placeOrderScreen.css" rel="stylesheet">
-    <script src="js/logout.js"></script>
+    <!-- <script src="js/logout.js"></script> -->
     <script src="js/order.js"></script>
 </head>
 
@@ -142,9 +142,11 @@
             logoutButton.addEventListener('click', function () {
                 // Clear the login status
                 localStorage.setItem('isLoggedIn', false);
-                clearCart();
+                localStorage.removeItem('userID');
+                localStorage.removeItem('cart');
+                localStorage.removeItem('shippingInfo');
                 // Refresh the page
-                location.reload();
+                window.location.href = 'loginScreen.html';
             });
         }
     </script>

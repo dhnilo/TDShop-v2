@@ -182,7 +182,7 @@
 
                 if (user) {
                     // Generate a unique order ID
-                    var orderID = (Date.now() * 1000 + Math.floor(Math.random() * 1000)).toString();
+                    var orderID = (Math.floor(Math.random() * 1000)).toString();
                     localStorage.setItem('orderID', orderID);
                     // If a user is logged in, redirect to shippingScreen.html
                     window.location.href = 'shippingScreen.html';

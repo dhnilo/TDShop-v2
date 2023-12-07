@@ -11,21 +11,25 @@ $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
 // Check connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the order from the request
-$order = json_decode(file_get_contents('php://input'), true);
+// Get the data
+$data = json_decode(file_get_contents('php://input'), true);
 
-// SQL query to insert the new order
-$sql = "INSERT INTO orders (userId, orderID, cart, shippingInfo)
-VALUES ('{$order['userId']}', '{$order['orderID']}', '{$order['cart']}', '{$order['shippingInfo']}')";
+// Prepare the SQL statement
+$stmt = $conn->prepare("INSERT INTO orders (userID, orderID, cart, shippingInfo, isPaid) VALUES (?, ?, ?, ?, ?)");
 
-if ($conn->query($sql) === TRUE) {
-  echo json_encode(array("message" => "New record created successfully"));
+// Bind the parameters
+$stmt->bind_param("iissi", $data['userId'], $data['orderID'], $data['cart'], $data['shippingInfo'], $data['isPaid']);
+
+// Execute the statement and check if it was successful
+if ($stmt->execute()) {
+  echo json_encode(["message" => "Order executed successfully"]);
 } else {
-  echo json_encode(array("error" => "Error placing order"));
+  echo json_encode(["error" => "Error executing order: " . $stmt->error]);
 }
 
+// Close the connection
 $conn->close();
 ?>

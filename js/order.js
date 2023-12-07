@@ -1,19 +1,25 @@
+console.log("order.js loaded");
+
 function placeOrder() {
-  var thisOrder = localStorage.getItem("orderID"),
-  orderID = parseInt(thisOrder.replace(/\D/g, ''));
-  var order = {
+  console.log("placeOrder() called");
+  var thisOrder = localStorage.getItem("orderID");
+  console.log(thisOrder);
+  newID = parseInt(thisOrder.replace(/\D/g, ""));
+  console.log(newID);
+  var orderItems = {
     userId: parseInt(localStorage.getItem("userId")),
-    orderID: orderID,
-    cart: JSON.parse(localStorage.getItem("cart")),
-    shippingInfo: JSON.parse(localStorage.getItem("shippingInfo")),
+    orderID: newID,
+    cart: JSON.stringify(localStorage.getItem("cart")),
+    shippingInfo: JSON.stringify(localStorage.getItem("shippingInfo")),
     isPaid: false,
   };
 
-  // Convert the order object to a JSON string
-  var orderJson = JSON.stringify(order);
-
   var orderFlag = false;
 
+  // Convert the order object to a JSON string
+  var orderJson = JSON.stringify(orderItems);
+
+  console.log(orderJson);
   // Send a POST request to the server-side script
   fetch("php/order.php", {
     method: "POST",
@@ -26,22 +32,16 @@ function placeOrder() {
     .then((data) => {
       // Handle the response from the server
       console.log("Order created:", data);
-      orderFlag = true;
+      if (data.message) {
+        orderFlag = true;
+        // Clear the cart
+        localStorage.removeItem("cart");
+        localStorage.removeItem("shippingInfo");
+        window.location.href = "orderScreen.html" + "?orderID=" + order.orderID;
+      } else if (data.error) {
+        orderFlag = false;
+        console.error("Error:", data.error);
+        alert("Order failed");
+      }
     })
-    .catch((error) => {
-      console.error("Error:", error);
-      orderFlag = false;
-    });
-
-  if (orderFlag) {
-    // Clear the cart
-    localStorage.removeItem("cart");
-    localStorage.removeItem("shippingInfo");
-
-    // Redirect to the order screen
-    window.location.href = "orderScreen.html" + "?orderID=" + order.orderID;
-  } else {
-    alert("Error placing order");
-    location.reload();
-  }
-}
+  };
