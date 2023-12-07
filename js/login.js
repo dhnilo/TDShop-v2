@@ -20,7 +20,8 @@ document
       console.log('Data:', data);
       if (data.success) {
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userId", data.userId.toString());
+        localStorage.setItem("userId", parseInt(data.userId));
+        console.log("User ID:", data.userId);
         window.location.href = "homeScreen.html";
       } else {
         alert("Invalid email or password");

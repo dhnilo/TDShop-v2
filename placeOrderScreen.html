@@ -5,13 +5,15 @@
     <title>Place Order</title>
     <link href="css/placeOrderScreen.css" rel="stylesheet">
     <script src="js/logout.js"></script>
+    <script src="js/order.js"></script>
 </head>
 
 <body>
     <header class="black-header">
         <div class="container">
             <div class="logo-container">
-                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo"
+                        class="logo"></a>
                 <h1 class="company-name">TD Shop</h1>
             </div>
             <div class="search-container">
@@ -32,34 +34,45 @@
     <main>
         <br>
         <ul style="text-align: center; list-style: none; padding: 0;">
-            <li style="display: inline-block; margin-right: 20px;"><a class="whiteText" href="loginScreen.html">Login</a></li>
-            <li style="display: inline-block; margin-right: 20px;"><a class="whiteText" href="shippingScreen.html">Shipping</a></li>
-            <li style="display: inline-block; margin-right: 20px;"><a class="whiteText" href="paymentScreen.html">Payment</a></li>
-            <li style="display: inline-block;"><p class="whiteText">Place Order</p></li>
+            <li style="display: inline-block; margin-right: 20px;"><a class="whiteText"
+                    href="loginScreen.html">Login</a></li>
+            <li style="display: inline-block; margin-right: 20px;"><a class="whiteText"
+                    href="shippingScreen.html">Shipping</a></li>
+            <li style="display: inline-block; margin-right: 20px;"><a class="whiteText"
+                    href="paymentScreen.html">Payment</a></li>
+            <li style="display: inline-block;">
+                <p class="whiteText">Place Order</p>
+            </li>
         </ul>
-        <div class="shipping">
-            <h1 class="title" style="text-align:left; padding: 20px;">Shipping</h1>
-            <div class="shipping-info">
-                <!-- The shipping information will be added here by the JavaScript -->
+        <div>
+            <div class="shipping">
+                <h1 class="title" style="text-align:left; padding: 20px;">Shipping</h1>
+                <div class="shipping-info">
+                    <!-- The shipping information will be added here by the JavaScript -->
+                </div>
+            </div>
+            <div class="order">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody class="order-table">
+                        <!-- The order items will be added here by the JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="order-summary">
+                <!-- The order summary will be added here by the JavaScript -->
             </div>
         </div>
-        <div class="order">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody class="order-table">
-                    <!-- The order items will be added here by the JavaScript -->
-                </tbody>
-            </table>
+        <div class="place-order" style="float: right;">
+            <button class="myButton fancyButton" onclick="placeOrder()">Place Order</button>
         </div>
-        <div class="order-summary">
-            <!-- The order summary will be added here by the JavaScript -->
     </main>
     <footer class="p-footer-color">
         <p>©2023 TD-Shop</p>
@@ -123,17 +136,17 @@
   <p>Tax: ${tax.toFixed(2)}</p>
   <p>Total price: ${totalPrice.toFixed(2)}</p>
 `;
-// Add a click event listener to the logout button
-const logoutButton = document.getElementById('logout');
-if (logoutButton) {
-  logoutButton.addEventListener('click', function () {
-    // Clear the login status
-    localStorage.setItem('isLoggedIn', false);
-    clearCart();
-    // Refresh the page
-    location.reload();
-  });
-}
+        // Add a click event listener to the logout button
+        const logoutButton = document.getElementById('logout');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function () {
+                // Clear the login status
+                localStorage.setItem('isLoggedIn', false);
+                clearCart();
+                // Refresh the page
+                location.reload();
+            });
+        }
     </script>
 </body>
 

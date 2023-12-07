@@ -182,8 +182,9 @@
 
                 if (user) {
                     // Generate a unique order ID
-                    var orderID = Date.now() + '-' + Math.floor(Math.random() * 1000);
-                    localStorage.setItem('orderID', JSON.stringify(orderID));
+                    var orderID = (Date.now() * 1000 + Math.floor(Math.random() * 1000)).toString();
+                    orderID = orderID.replace(/\D/g, '');
+                    localStorage.setItem('orderID', orderID);
                     // If a user is logged in, redirect to shippingScreen.html
                     window.location.href = 'shippingScreen.html';
                 } else {
