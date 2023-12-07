@@ -1,8 +1,10 @@
 function placeOrder() {
+  var thisOrder = localStorage.getItem("orderID"),
+  orderID = parseInt(thisOrder.replace(/\D/g, ''));
   var order = {
     userId: parseInt(localStorage.getItem("userId")),
-    orderID: parseInt(localStorage.getItem("orderID")),
-    cart: JSON.parse(ocalStorage.getItem("cart")),
+    orderID: orderID,
+    cart: JSON.parse(localStorage.getItem("cart")),
     shippingInfo: JSON.parse(localStorage.getItem("shippingInfo")),
     isPaid: false,
   };
@@ -10,7 +12,7 @@ function placeOrder() {
   // Convert the order object to a JSON string
   var orderJson = JSON.stringify(order);
 
-  var orderflag = false;
+  var orderFlag = false;
 
   // Send a POST request to the server-side script
   fetch("php/order.php", {
@@ -24,14 +26,14 @@ function placeOrder() {
     .then((data) => {
       // Handle the response from the server
       console.log("Order created:", data);
-      orderflag = true;
+      orderFlag = true;
     })
     .catch((error) => {
       console.error("Error:", error);
-      orderflag = false;
+      orderFlag = false;
     });
 
-  if (orderflag) {
+  if (orderFlag) {
     // Clear the cart
     localStorage.removeItem("cart");
     localStorage.removeItem("shippingInfo");
