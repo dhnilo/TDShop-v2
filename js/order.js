@@ -1,11 +1,6 @@
-console.log("order.js loaded");
-
 function placeOrder() {
-  console.log("placeOrder() called");
   var thisOrder = localStorage.getItem("orderID");
-  console.log(thisOrder);
   newID = parseInt(thisOrder.replace(/\D/g, ""));
-  console.log(newID);
   var orderItems = {
     userId: parseInt(localStorage.getItem("userId")),
     orderID: newID,
@@ -18,8 +13,7 @@ function placeOrder() {
 
   // Convert the order object to a JSON string
   var orderJson = JSON.stringify(orderItems);
-
-  console.log(orderJson);
+  
   // Send a POST request to the server-side script
   fetch("php/order.php", {
     method: "POST",

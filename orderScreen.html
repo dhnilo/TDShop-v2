@@ -8,11 +8,13 @@
     <script src="js/logout.js"></script>
     <title>Your Order</title>
 </head>
+
 <body>
     <header class="black-header">
         <div class="containerNav">
             <div class="logo-container">
-                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo" class="logo"></a>
+                <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo"
+                        class="logo"></a>
                 <h1 class="company-name">TD Shop</h1>
             </div>
             <div class="search-container">
@@ -32,9 +34,9 @@
     </header>
     <br>
     <div class="container">
-        <div class="order">
-            <h1 class="title">Your Order ID: __number___ </h1>
-            <table>
+        <div class="order" id="orderContainer">
+            <h1 class="title">Your Order ID: </h1>
+            <table id="orderTable">
                 <thead>
                     <tr>
                         <th class="whiteText">Product</th>
@@ -42,99 +44,69 @@
                         <th class="whiteText">Quantity</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <!-- Order items will be inserted here by JavaScript -->
+                </tbody>
             </table>
         </div>
         <div class="orderSummary">
             <h1 class="purpleTitle">Order Summary</h1>
-            <div class="orderSection">
-                <p>insert item subtotal</p>
+            <div class="orderSection" id="itemSubtotal">
+                <!-- Item subtotal will be inserted here by JavaScript -->
             </div>
-            <div class="orderSeparator"></div>
-            <div class="orderSection">
-                <p>insert shipping</p>
+            <div class="orderSection" id="shipping">
+                <!-- Shipping info will be inserted here by JavaScript -->
             </div>
-            <div class="orderSeparator"></div>
-            <div class="orderSection">
-                <p>insert tax</p>
+            <div class="orderSection" id="orderTable">
+                <!-- Order items will be inserted here by JavaScript -->
             </div>
-            <div class="orderSeparator"></div>
-            <div class="orderSection">
-                <p>insert total</p>
+            <div class="orderSection" id="total">
+                <!-- Total will be inserted here by JavaScript -->
             </div>
             <div class="orderSeparator"></div>
             <button type="button" onclick="submitForm()">Put PayPal here</button>
         </div>
     </div>
+    <!-- Include getOrder.js -->
+    <script src="js/getOrder.js"></script>
+
     <script>
-        // Fetch the cart and shipping information
-        var cart = JSON.parse(localStorage.getItem('cart'));
-        var shippingInfo = JSON.parse(localStorage.getItem('shippingInfo'));
+        window.onload = function () {
+            getOrder(order => {
+                // Display the order ID
+                document.querySelector('.title').textContent += order.orderID;
 
-        // Create the order object
-        var order = {
-            _id: f,
-            userId: localStorage.getItem('userId'),
-            orderItems: cart,
-            shippingInfo: shippingInfo,
-            isPaid: false
+                // Display the order items
+                const orderTable = document.querySelector('#orderTable tbody');
+                order.cart.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                <td>${item.name}</td>
+                <td>${item.price}</td>
+                <td>${item.qty}</td>
+            `;
+                    orderTable.appendChild(row);
+                });
+
+                // Display the shipping info
+                document.querySelector('#shipping').textContent = `Shipping: ${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.postalCode}, ${order.shippingInfo.country}`;
+
+                // Display the total
+                const total = order.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+                document.querySelector('#total').textContent = `Total: ${total}`;
+            });
         };
-
-        // Get the shipping information section, order table, and order summary
-        var shippingInfoSection = document.querySelector('.shipping-info');
-        var orderTable = document.querySelector('.order table');
-        var orderSummary = document.querySelector('.order-summary');
-
-        // Initialize the item price
-        var itemPrice = 0;
-
-        // For each item in the order
-        order.items.forEach(item => {
-            // Create a table row
-            var row = document.createElement('tr');
-            row.innerHTML = `
-    <td><img src="${item.image}" alt="${item.title}"></td>
-    <td>${item.title}</td>
-    <td>${item.price}</td>
-  `;
-
-            // Add the table row to the order table
-            orderTable.appendChild(row);
-
-            // Update the item price
-            itemPrice += item.price * item.quantity;
-        });
-
-        // Calculate the shipping price, tax, and total price
-        var shippingPrice = itemPrice < 50 ? itemPrice * 0.05 : 0;
-        var tax = itemPrice * 0.1;
-        var totalPrice = itemPrice + shippingPrice + tax;
-
-        // Update the HTML of the shipping information section
-        shippingInfoSection.innerHTML = `
-  <p>Address: ${order.shippingInfo.address}</p>
-  <p>City: ${order.shippingInfo.city}</p>
-  <p>Postal Code: ${order.shippingInfo.postalCode}</p>
-  <p>Country: ${order.shippingInfo.country}</p>
-`;
-
-        // Update the HTML of the order summary
-        orderSummary.innerHTML = `
-  <p>Item price: ${itemPrice}</p>
-  <p>Shipping price: ${shippingPrice}</p>
-  <p>Tax: ${tax}</p>
-  <p>Total price: ${totalPrice}</p>
-`;
-// Add a click event listener to the logout button
-const logoutButton = document.getElementById('logout');
-if (logoutButton) {
-  logoutButton.addEventListener('click', function () {
-    // Clear the login status
-    localStorage.setItem('isLoggedIn', false);
-    clearCart();
-    // Refresh the page
-    location.reload();
-  });
-}
+        // Add a click event listener to the logout button
+        const logoutButton = document.getElementById('logout');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function () {
+                // Clear the login status
+                localStorage.setItem('isLoggedIn', false);
+                clearCart();
+                // Refresh the page
+                location.reload();
+            });
+        }
     </script>
 </body>
 
