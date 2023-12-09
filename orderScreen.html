@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/orderScreen.css" rel="stylesheet">
     <script src="js/logout.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AWTO6cv0xj_szivQFe7oTBVqoyYGWwJoYfS9lPDE5oAjD6LzYxeGfSqPyjO7S_Y1t6XotZcFH7ANJdDn"></script>
     <title>Your Order</title>
 </head>
 
@@ -35,10 +36,14 @@
     <br>
     <div class="container">
         <div class="order" id="orderContainer">
-            <h1 class="title">Your Order ID: </h1>
+            <h1 class="title"></h1>
+            <div id="shipping">
+                <!-- Shipping info will be inserted here by JavaScript -->
+            </div>
             <table id="orderTable">
                 <thead>
                     <tr>
+                        <th class="whiteText"></th>
                         <th class="whiteText">Product</th>
                         <th class="whiteText">Price</th>
                         <th class="whiteText">Quantity</th>
@@ -54,17 +59,18 @@
             <div class="orderSection" id="itemSubtotal">
                 <!-- Item subtotal will be inserted here by JavaScript -->
             </div>
-            <div class="orderSection" id="shipping">
-                <!-- Shipping info will be inserted here by JavaScript -->
-            </div>
-            <div class="orderSection" id="orderTable">
+            <div class="orderSection" id="itemTax">
                 <!-- Order items will be inserted here by JavaScript -->
+            </div>
+            <div class="orderSection" id="shippingPrice">
+                <!-- Shipping will be inserted here by JavaScript -->
             </div>
             <div class="orderSection" id="total">
                 <!-- Total will be inserted here by JavaScript -->
             </div>
             <div class="orderSeparator"></div>
-            <button type="button" onclick="submitForm()">Put PayPal here</button>
+            <div class="orderSection">
+                <div id="paypal-button-container"></div>
         </div>
     </div>
     <!-- Include getOrder.js -->
@@ -72,30 +78,9 @@
 
     <script>
         window.onload = function () {
-            getOrder(order => {
-                // Display the order ID
-                document.querySelector('.title').textContent += order.orderID;
-
-                // Display the order items
-                const orderTable = document.querySelector('#orderTable tbody');
-                order.cart.forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                <td>${item.name}</td>
-                <td>${item.price}</td>
-                <td>${item.qty}</td>
-            `;
-                    orderTable.appendChild(row);
-                });
-
-                // Display the shipping info
-                document.querySelector('#shipping').textContent = `Shipping: ${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.postalCode}, ${order.shippingInfo.country}`;
-
-                // Display the total
-                const total = order.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-                document.querySelector('#total').textContent = `Total: ${total}`;
-            });
+            getOrder();
         };
+
         // Add a click event listener to the logout button
         const logoutButton = document.getElementById('logout');
         if (logoutButton) {
