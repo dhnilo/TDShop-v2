@@ -247,7 +247,7 @@ button {
 }
 .orderSummary button {
     width: 100%;
-    background-color: var(--bs-purple);
+    background-color: var(--purple);
     color: white;
     padding: 10px;
     border: none;
@@ -257,7 +257,7 @@ button {
     margin-top: 5px;
 }
 .orderSummary button:hover {
-    background-color: var(--bs-blue);
+    background-color: var(--aqua);
 }
 
 /* Footer */

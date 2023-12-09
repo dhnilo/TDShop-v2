@@ -21,6 +21,7 @@ document
       if (data.success) {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userId", parseInt(data.userId));
+        localStorage.setItem("isMember", data.isMember);
         console.log("User ID:", data.userId);
         window.location.href = "homeScreen.html";
       } else {

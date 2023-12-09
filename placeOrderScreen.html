@@ -66,6 +66,22 @@
                 <div class="shipping-info">
                     <!-- The shipping information will be added here by the JavaScript -->
                 </div>
+                <div class="theShipAddress">
+                    <!-- java script inserts subtotal here -->
+                </div>
+                <div class="orderSeparator"></div>
+                <div class="theShipCity">
+                    <!-- java script inserts subtotal here -->
+                </div>
+                <div class="orderSeparator"></div>
+                <div class="theShipPostal">
+                    <!-- java script inserts subtotal here -->
+                </div>
+                <div class="orderSeparator"></div>
+                <div class="theShipCountry">
+                    <!-- java script inserts subtotal here -->
+                </div>
+                <div class="orderSeparator"></div>
             </div>
             <div class="order"
             style="background-color: white;
@@ -99,9 +115,23 @@
             padding: 10px;
             ">
                 <h1 class="purpleTitle" style="text-align:left; padding: 20px; font-size: 35px;">Order Summary</h1>
-                <div class="order-summary">
-                <!-- The order summary will be added here by the JavaScript -->
+                <div class="theSubtotal">
+                    <!-- java script inserts subtotal here -->
                 </div>
+                <div class="orderSeparator"></div>
+                <div class="theShipping">
+                    <!-- java script inserts subtotal here -->
+                </div>
+                <div class="orderSeparator"></div>
+                <div class="theTax">
+                    <!-- java script inserts subtotal here -->
+                </div>
+                <div class="orderSeparator"></div>
+                <div class="theTotal">
+                    <!-- java script inserts subtotal here -->
+                </div>
+                <div class="orderSeparator"></div>
+
                 <div class="place-order" style="float: right;">
                     <button class="mySecondButton fancyButton" onclick="placeOrder()">Place Order</button>
                 </div>
@@ -128,7 +158,17 @@
         // Get the shipping information section, order table, and order summary
         var shippingInfoSection = document.querySelector('.shipping-info');
         var orderTable = document.querySelector('.order table');
-        var orderSummary = document.querySelector('.order-summary');
+        //var orderSummary = document.querySelector('.order-summary');
+
+        var myShipAddress = document.querySelector('.theShipAddress');
+        var myShipCity = document.querySelector('.theShipCity');
+        var myShipPostal = document.querySelector('.theShipPostal');
+        var myShipCountry = document.querySelector('.theShipCountry');
+
+        var mySubtotal = document.querySelector('.theSubtotal');
+        var myShipping = document.querySelector('.theShipping');
+        var myTax = document.querySelector('.theTax');
+        var myTotal = document.querySelector('.theTotal');
 
         // Initialize the item price
         var itemPrice = 0;
@@ -138,14 +178,28 @@
             // Create a table row
             var row = document.createElement('tr');
             row.innerHTML = `
-    <td><img class="item-image" src="${item.image}" alt="${item.name}" style='width: 50px; height: auto;'></td>
-    <td>${item.name}</td>
-    <td>${item.price}</td>
-    <td>${item.qty}</td>
+    <td class="item-cell"><img class="item-image" src="${item.image}" alt="${item.name}" style='width: 50px; height: auto;'></td>
+    <td class="item-cell">${item.name}</td>
+    <td class="item-cell">${item.price}</td>
+    <td class="item-cell">${item.qty}</td>
   `;
 
             // Add the table row to the order table
             orderTable.appendChild(row);
+
+
+
+        var separatorRow = document.createElement('tr');
+        separatorRow.innerHTML = `
+            <td colspan="4">
+                <div class="orderSeparator" style="height: 1px; background-color: gray; margin: 10px 0;"></div>
+            </td>
+        `;
+
+
+
+
+            orderTable.appendChild(separatorRow);
 
             // Update the item price
             itemPrice += item.price * item.qty;
@@ -156,16 +210,29 @@
         var tax = itemPrice * 0.1;
         var totalPrice = itemPrice + shippingPrice + tax;
 
-        // Update the HTML of the shipping information section
+       /* // Update the HTML of the shipping information section
         shippingInfoSection.innerHTML = `
   <p>Address: ${order.shippingInfo.address}</p>
   <p>City: ${order.shippingInfo.city}</p>
   <p>Postal Code: ${order.shippingInfo.postalCode}</p>
   <p>Country: ${order.shippingInfo.country}</p>
-`;
+`;*/
+
+myShipAddress.innerHTML = `
+        <p class="item-cell">Address: ${order.shippingInfo.address}</p>
+        `;
+myShipCity.innerHTML = `
+        <p class="item-cell">City: ${order.shippingInfo.city}</p>
+        `;
+myShipPostal.innerHTML = `
+        <p class="item-cell">Postal Code: ${order.shippingInfo.postalCode}</p>
+        `;
+myShipCountry.innerHTML = `
+        <p class="item-cell">Country: ${order.shippingInfo.country}</p>
+        `;
 
         // Update the HTML of the order summary
-        orderSummary.innerHTML = `
+   /*     orderSummary.innerHTML = `
     <p>Item price: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${itemPrice.toFixed(2)}</p>
     <p>------------------------------------------------------</p>
     <p>Shipping price: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${shippingPrice.toFixed(2)}</p>
@@ -176,7 +243,39 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${tax.toFixed(2)}</p>
     <p>------------------------------------------------------</p>
     <p>Total price: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${totalPrice.toFixed(2)}</p>
-`;
+`;*/
+
+mySubtotal.innerHTML = `
+        <p>Subtotal: 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
+            $${itemPrice.toFixed(2)}</p>
+        `;
+myShipping.innerHTML = `
+        <p>Shipping: 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            $${shippingPrice.toFixed(2)}</p>
+        `;
+myTax.innerHTML = `
+        <p>Tax: 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            $${tax.toFixed(2)}</p>
+        `;
+myTotal.innerHTML = `
+        <p>Total: 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            $${totalPrice.toFixed(2)}</p>
+        `;
+
         // Add a click event listener to the logout button
         const logoutButton = document.getElementById('logout');
         if (logoutButton) {
