@@ -18,8 +18,8 @@
                 <h1 class="company-name">TD Shop</h1>
             </div>
             <div class="search-container">
-                <button class="myButton" style="margin-right: 10vw; margin-left: 10vw;" id="member-button"
-                    onclick="member()">Join our premium member's club today!</button>
+                <button class="myButton" style="margin-right: 10vw; margin-left: 10vw;" id="member-button">Join our
+                    premium member's club today!</button>
                 <form class="search-form">
                     <input type="text" placeholder="Search">
                     <button class="myButton fancyButton" type="submit">Search</button>
@@ -121,27 +121,62 @@
                 errorMessage.style.color = 'green';
                 errorMessage.innerHTML = 'Registration successful!';
 
-            fetch('php/updateUser.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    'userId': userId,
-                    'firstName': name,
-                    'email': email,
-                    'password': password,
-                }),
-            })
-                .then(response => response.text())
-                .then(data => {
-                    console.log(data);
+                fetch('php/updateUser.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        'userId': userId,
+                        'firstName': name,
+                        'email': email,
+                        'password': password,
+                    }),
                 })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
             });
 
+            document.getElementById('member-button').addEventListener('click', function () {
+                // Update the user data
+
+
+                // Send a POST request to the server
+                fetch('php/member.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'userId': parseInt(localStorage.getItem('userId')),
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(text => {
+                        try {
+                            return JSON.parse(text);
+                        } catch (error) {
+                            console.log('Not valid JSON:', text);
+                            throw new Error('Invalid JSON');
+                        }
+                    })
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            });
 
 
             // Add a click event listener to the logout button

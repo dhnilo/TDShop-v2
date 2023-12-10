@@ -52,7 +52,7 @@ if ($result->num_rows > 0) {
   // Check if the entered password matches the hashed password in the database
   if (password_verify($password, $user['password'])) {
     // The passwords match
-    echo json_encode(['success' => true, 'userId' => $user['id']]);
+    echo json_encode(['success' => true, 'isMember' => $user['isMember'], 'userId' => $user['id']]);
 } else {
     // The passwords don't match
     echo json_encode(['success' => false]);
