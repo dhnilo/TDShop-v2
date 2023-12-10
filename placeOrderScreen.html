@@ -10,7 +10,7 @@
 
 <body>
     <header class="black-header">
-        <div class="container">
+        <div class="containerNav">
             <div class="logo-container">
                 <a class="navbar-brand" href="homeScreen.html"><img src="images/shop.webp" alt="TD Shop Logo"
                         class="logo"></a>
@@ -44,45 +44,9 @@
                 <p class="whiteText">Place Order</p>
             </li>
         </ul>
-        <div class="element-container" style="display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
-        margin-left: 5vw;
-        margin-right: 5vw;
-        justify-content: space-between;
-        min-height: 50vh;
-        ">
-            <div class="shipping" style="background-color: white;
-            border-radius: 8px;
-            margin-top: 5vh;
-            margin-bottom: 5vh;
-            align-items: center;
-            padding: 10px;
-            ">
-                <h1 class="purpleTitle" style="text-align:left; padding: 20px; font-size: 35px;">Shipping</h1>
-                <div class="shipping-info">
-                    <!-- The shipping information will be added here by the JavaScript -->
-                </div>
-                <div class="theShipAddress">
-                    <!-- java script inserts subtotal here -->
-                </div>
-                <div class="orderSeparator"></div>
-                <div class="theShipCity">
-                    <!-- java script inserts subtotal here -->
-                </div>
-                <div class="orderSeparator"></div>
-                <div class="theShipPostal">
-                    <!-- java script inserts subtotal here -->
-                </div>
-                <div class="orderSeparator"></div>
-                <div class="theShipCountry">
-                    <!-- java script inserts subtotal here -->
-                </div>
-                <div class="orderSeparator"></div>
-            </div>
+        <br>
+        <div class="container">
+            <div class="order" id="orderContainer">
             <div class="order"
             style="background-color: white;
             border-radius: 8px;
@@ -91,30 +55,33 @@
             align-items: center;
             padding: 10px;
             ">
-                <h1 class="purpleTitle" style="text-align:left; padding: 20px; font-size: 35px;">Order</h1>
-                <table>
+
+            <h1 class="purpleTitle">Shipping</h1>
+                <div class="theShipAddress">
+                    <!-- java script inserts subtotal here -->
+                </div>
+                <div class="orderSeparator"></div>
+
+
+                <h1 class="purpleTitle">Order</h1>
+                <table id="orderTable">
                     <thead>
                         <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th style="color:var(--purple)">Image</th>
+                            <th style="color:var(--purple)">Name</th>
+                            <th style="color:var(--purple)">Price</th>
+                            <th style="color:var(--purple)">Quantity</th>
                         </tr>
                     </thead>
                     <tbody class="order-table">
                         <!-- The order items will be added here by the JavaScript -->
                     </tbody>
                 </table>
+                <div class="orderSeparator"></div>
+                </div>
             </div>
-            <div class="orderSummaryHolder" style="background-color:white;
-            border-radius: 8px;
-            margin-top: 5vh;
-            margin-bottom: 5vh;
-            align-items: center;
-            margin-right: 5vw;
-            padding: 10px;
-            ">
-                <h1 class="purpleTitle" style="text-align:left; padding: 20px; font-size: 35px;">Order Summary</h1>
+            <div class="orderSummary">
+                <h1 class="purpleTitle">Order Summary</h1>
                 <div class="theSubtotal">
                     <!-- java script inserts subtotal here -->
                 </div>
@@ -132,8 +99,8 @@
                 </div>
                 <div class="orderSeparator"></div>
 
-                <div class="place-order" style="float: right;">
-                    <button class="mySecondButton fancyButton" onclick="placeOrder()">Place Order</button>
+                <div class="place-order">
+                    <button onclick="placeOrder()">Place Order</button>
                 </div>
             </div>
         </div>
@@ -156,14 +123,10 @@
         };
 
         // Get the shipping information section, order table, and order summary
-        var shippingInfoSection = document.querySelector('.shipping-info');
         var orderTable = document.querySelector('.order table');
-        //var orderSummary = document.querySelector('.order-summary');
 
         var myShipAddress = document.querySelector('.theShipAddress');
-        var myShipCity = document.querySelector('.theShipCity');
-        var myShipPostal = document.querySelector('.theShipPostal');
-        var myShipCountry = document.querySelector('.theShipCountry');
+
 
         var mySubtotal = document.querySelector('.theSubtotal');
         var myShipping = document.querySelector('.theShipping');
@@ -174,7 +137,7 @@
         var itemPrice = 0;
 
         // For each item in the order
-        order.items.forEach(item => {
+        order.items.forEach((item, index, array) => {
             // Create a table row
             var row = document.createElement('tr');
             row.innerHTML = `
@@ -189,17 +152,16 @@
 
 
 
-        var separatorRow = document.createElement('tr');
-        separatorRow.innerHTML = `
-            <td colspan="4">
-                <div class="orderSeparator" style="height: 1px; background-color: gray; margin: 10px 0;"></div>
-            </td>
-        `;
-
-
-
-
-            orderTable.appendChild(separatorRow);
+            if (index !== array.length - 1) {
+                var separatorRow = document.createElement('tr');
+                separatorRow.innerHTML = `
+                    <td colspan="4">
+                        <div class="orderSeparator" style="height: 1px; background-color: gray; margin: 10px 0;"></div>
+                    </td>
+                `;
+        
+                orderTable.appendChild(separatorRow);
+            }
 
             // Update the item price
             itemPrice += item.price * item.qty;
@@ -210,40 +172,13 @@
         var tax = itemPrice * 0.1;
         var totalPrice = itemPrice + shippingPrice + tax;
 
-       /* // Update the HTML of the shipping information section
-        shippingInfoSection.innerHTML = `
-  <p>Address: ${order.shippingInfo.address}</p>
-  <p>City: ${order.shippingInfo.city}</p>
-  <p>Postal Code: ${order.shippingInfo.postalCode}</p>
-  <p>Country: ${order.shippingInfo.country}</p>
-`;*/
 
 myShipAddress.innerHTML = `
-        <p class="item-cell">Address: ${order.shippingInfo.address}</p>
+        <p class="item-cell">Address: ${order.shippingInfo.address}, 
+            ${order.shippingInfo.city}, 
+            ${order.shippingInfo.postalCode}, 
+            ${order.shippingInfo.country}</p>
         `;
-myShipCity.innerHTML = `
-        <p class="item-cell">City: ${order.shippingInfo.city}</p>
-        `;
-myShipPostal.innerHTML = `
-        <p class="item-cell">Postal Code: ${order.shippingInfo.postalCode}</p>
-        `;
-myShipCountry.innerHTML = `
-        <p class="item-cell">Country: ${order.shippingInfo.country}</p>
-        `;
-
-        // Update the HTML of the order summary
-   /*     orderSummary.innerHTML = `
-    <p>Item price: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${itemPrice.toFixed(2)}</p>
-    <p>------------------------------------------------------</p>
-    <p>Shipping price: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${shippingPrice.toFixed(2)}</p>
-    <p>------------------------------------------------------</p>
-    <p>Tax: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${tax.toFixed(2)}</p>
-    <p>------------------------------------------------------</p>
-    <p>Total price: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${totalPrice.toFixed(2)}</p>
-`;*/
 
 mySubtotal.innerHTML = `
         <p>Subtotal: 
