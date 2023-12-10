@@ -29,33 +29,45 @@ function getOrder() {
 
       // Display the order items
       const orderTable = document.querySelector("#orderTable tbody");
-      data.cart.forEach((item) => {
+      data.cart.forEach((item, index, array) => {
         totalItemPrice += item.price * item.qty;
         const row = document.createElement("tr");
         row.innerHTML = `
-              <td><img src="${item.image}" width="100px"></td>s  
-              <td>${item.name}</td>
-              <td>$${item.price}</td>
-              <td>${item.qty}</td>
+              <td style="padding:20px;"><img src="${item.image}" width="100px"></td>  
+              <td style="padding:20px;">${item.name}</td>
+              <td style="padding:20px;">$${item.price}</td>
+              <td style="padding:20px;">${item.qty}</td>
           `;
         orderTable.appendChild(row);
+
+        if(index !== array.length - 1){
+          var separatorRow = document.createElement('tr');
+          separatorRow.innerHTML = `
+              <td colspan="4">
+                  <div class="orderSeparator" style="height: 1px; background-color: gray; margin: 10px 0;"></div>
+              </td>
+          `;
+          orderTable.appendChild(separatorRow);
+        }
       });
 
       console.log("Order data:", data);
 
       // Display the shipping info
       const shippingElement = document.querySelector("#shipping");
-      shippingElement.textContent = `Shipping: ${data.shippingInfo.address}, ${data.shippingInfo.city}, ${data.shippingInfo.postalCode}, ${data.shippingInfo.country}`;
+      shippingElement.textContent = `Address: ${data.shippingInfo.address}, ${data.shippingInfo.city}, ${data.shippingInfo.postalCode}, ${data.shippingInfo.country}`;
 
       // Display the item subtotal
       const itemSubtotalElement = document.querySelector("#itemSubtotal");
-      itemSubtotalElement.textContent = `Item Subtotal: $${totalItemPrice.toFixed(2)}`;
+      const whiteSpace = '\xa0\xa0\xa0\xa0\xa0';
+      itemSubtotalElement.textContent = `Item Subtotal: ${whiteSpace}$${totalItemPrice.toFixed(2)}`;
 
       // Calculate and display the tax
       const taxRate = 0.1; // Update this to your actual tax rate
       const taxPrice = totalItemPrice * taxRate;
       const itemTaxElement = document.querySelector("#itemTax");
-      itemTaxElement.textContent = `Tax: $${taxPrice.toFixed(2)}`;
+      const smallWhiteSpace = ' ';
+      itemTaxElement.textContent = `Tax: ${whiteSpace}${whiteSpace}${whiteSpace}${whiteSpace}${smallWhiteSpace}$${taxPrice.toFixed(2)}`;
 
       // Display the shipping price in the order summary
       const shippingPriceElement = document.querySelector("#shippingPrice");
@@ -64,12 +76,12 @@ function getOrder() {
       } else {
         shippingPrice = 10;
       }
-      shippingPriceElement.textContent = `Shipping Price: $${shippingPrice.toFixed(2)}`;
+      shippingPriceElement.textContent = `Shipping Price: \xa0\xa0\xa0$${shippingPrice.toFixed(2)}`;
 
       // Calculate and display the total
       const totalPrice = totalItemPrice + taxPrice + shippingPrice;
       const totalElement = document.querySelector("#total");
-      totalElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
+      totalElement.textContent = `Total: ${whiteSpace}${whiteSpace}${whiteSpace}\xa0\xa0\xa0\xa0$${totalPrice.toFixed(2)}`;
 
       paypal.Buttons({
         createOrder: function (data, actions) {

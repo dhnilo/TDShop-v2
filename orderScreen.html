@@ -37,34 +37,55 @@
     <div class="container">
         <div class="order" id="orderContainer">
             <h1 class="title"></h1>
+            <div class="order"
+            style="background-color: white;
+            border-radius: 8px;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            align-items: center;
+            padding: 10px;
+            ">
+            <h1 class="purpleTitle">Shipping Information</h1>
             <div id="shipping">
                 <!-- Shipping info will be inserted here by JavaScript -->
             </div>
+            <div class="orderSeparator"></div>
+
+            <h1 class="purpleTitle">Payment Information</h1>
+            <p><strong>Payment Method: </strong>PayPal</p>
+
+            <div class="orderSeparator"></div>
+            <h1 class="purpleTitle">Order Items</h1>
             <table id="orderTable">
                 <thead>
                     <tr>
-                        <th class="whiteText"></th>
-                        <th class="whiteText">Product</th>
-                        <th class="whiteText">Price</th>
-                        <th class="whiteText">Quantity</th>
+                        <th style="color:var(--purple)">Image</th>
+                        <th style="color:var(--purple)">Product</th>
+                        <th style="color:var(--purple)">Price</th>
+                        <th style="color:var(--purple)">Quantity</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Order items will be inserted here by JavaScript -->
                 </tbody>
             </table>
+            <div class="orderSeparator"></div>
+            </div>
         </div>
         <div class="orderSummary">
             <h1 class="purpleTitle">Order Summary</h1>
             <div class="orderSection" id="itemSubtotal">
                 <!-- Item subtotal will be inserted here by JavaScript -->
             </div>
+            <div class="orderSeparator"></div>
             <div class="orderSection" id="itemTax">
                 <!-- Order items will be inserted here by JavaScript -->
             </div>
+            <div class="orderSeparator"></div>
             <div class="orderSection" id="shippingPrice">
                 <!-- Shipping will be inserted here by JavaScript -->
             </div>
+            <div class="orderSeparator"></div>
             <div class="orderSection" id="total">
                 <!-- Total will be inserted here by JavaScript -->
             </div>
