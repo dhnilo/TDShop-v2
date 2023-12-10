@@ -28,6 +28,9 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 var_dump($_POST);
 
 // Update the user's profile information in the database
+// Construct the SQL statement we want to run, specifying the parameter
+// don't trust the user, so we need to use a prepared statement
+// avoid SQL injection attacks by using a prepared statement
 $sql = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('sssi', $name, $email, $hashedPassword, $userId); // Use the userId from the form data

@@ -32,6 +32,9 @@ error_log("Email: $email");
 error_log("Password: $password");
 
 // Prepare a SQL query to select the user with the entered email
+// Construct the SQL statement we want to run, specifying the parameter
+// don't trust the user, so we need to use a prepared statement
+// avoid SQL injection attacks by using a prepared statement
 $stmt = $db->prepare('SELECT * FROM users WHERE email = ?');
 $stmt->bind_param('s', $email);
 

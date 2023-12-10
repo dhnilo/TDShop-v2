@@ -18,6 +18,9 @@ if ($conn->connect_error) {
 }
 
 // Prepare an SQL UPDATE statement
+// Construct the SQL statement we want to run, specifying the parameter
+// don't trust the user, so we need to use a prepared statement
+// avoid SQL injection attacks by using a prepared statement
 $sql = "UPDATE users SET isMember = 'true' WHERE id = ?";
 
 // Log the SQL UPDATE statement

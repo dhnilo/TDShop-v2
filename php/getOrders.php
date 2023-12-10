@@ -21,6 +21,9 @@ if ($conn->connect_error) {
 $orderID = $_GET['orderID'];
 
 // Query the database to get the row
+// Construct the SQL statement we want to run, specifying the parameter
+// don't trust the user, so we need to use a prepared statement
+// avoid SQL injection attacks by using a prepared statement
 $query = "SELECT * FROM orders WHERE orderID = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $orderID);

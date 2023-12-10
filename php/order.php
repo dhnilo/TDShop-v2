@@ -18,6 +18,9 @@ if ($conn->connect_error) {
 $data = json_decode(file_get_contents('php://input'), true);
 
 // Prepare the SQL statement
+// Construct the SQL statement we want to run, specifying the parameter
+// don't trust the user, so we need to use a prepared statement
+// avoid SQL injection attacks by using a prepared statement
 $stmt = $conn->prepare("INSERT INTO orders (userID, orderID, cart, shippingInfo, isPaid) VALUES (?, ?, ?, ?, ?)");
 
 // Bind the parameters

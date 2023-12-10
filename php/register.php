@@ -48,6 +48,9 @@ if ($result->num_rows > 0) {
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Prepare an SQL statement
+// Construct the SQL statement we want to run, specifying the parameter
+// don't trust the user, so we need to use a prepared statement
+// avoid SQL injection attacks by using a prepared statement
 $stmt = $db->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
 
 // Bind the parameters to the SQL statement

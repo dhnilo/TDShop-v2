@@ -6,6 +6,9 @@ function getOrder() {
   // Select the container
   const container = document.querySelector("#orderContainer");
 
+  // Check if the user is a member
+  const isMember = localStorage.getItem("isMember");
+
   // Send a GET request to getOrder.php
   fetch(`php/getOrders.php?orderID=${orderID}`)
     .then((response) => response.json())
@@ -79,9 +82,21 @@ function getOrder() {
       shippingPriceElement.textContent = `Shipping Price: \xa0\xa0\xa0$${shippingPrice.toFixed(2)}`;
 
       // Calculate and display the total
-      const totalPrice = totalItemPrice + taxPrice + shippingPrice;
+      var totalPrice = totalItemPrice + taxPrice + shippingPrice;
+
+      if(isMember === "true"){
+        totalPrice *= 0.9;
+      }
+
       const totalElement = document.querySelector("#total");
       totalElement.textContent = `Total: ${whiteSpace}${whiteSpace}${whiteSpace}\xa0\xa0\xa0\xa0$${totalPrice.toFixed(2)}`;
+      
+      // Display a discount message if the user is a member
+      if(isMember === "true"){
+        const discountMessage = document.querySelector("#discountMessage");
+        discountMessage.textContent = "You are a member, so you get 10% off!";
+      }
+
 
       if (data.isPaid) {
         // Display the payment status

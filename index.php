@@ -16,6 +16,9 @@ if ($conn->connect_error) {
 function getProductDetailsFromDatabase($id) {
   global $conn;
 
+  // Construct the SQL statement we want to run, specifying the parameter
+// don't trust the user, so we need to use a prepared statement
+// avoid SQL injection attacks by using a prepared statement
   $sql = "SELECT * FROM products WHERE id = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("s", $id);;
