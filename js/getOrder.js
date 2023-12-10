@@ -33,7 +33,7 @@ function getOrder() {
         totalItemPrice += item.price * item.qty;
         const row = document.createElement("tr");
         row.innerHTML = `
-              <td><img src="${item.image}" width="100px"></td>s  
+              <td><img src="${item.image}" width="100px"></td>
               <td>${item.name}</td>
               <td>$${item.price}</td>
               <td>${item.qty}</td>
@@ -71,24 +71,31 @@ function getOrder() {
       const totalElement = document.querySelector("#total");
       totalElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
 
-      paypal.Buttons({
-        createOrder: function (data, actions) {
-            // This function sets up the details of the transaction, including the amount and line item details.
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: totalPrice.toFixed(2)
-                    }
-                }]
-            });
-        },
-        onApprove: function (data, actions) {
-            // This function captures the funds from the transaction.
-            return actions.order.capture().then(function (details) {
-                // This function shows a transaction success message to your buyer.
-                alert('Transaction completed by ' + details.payer.name.given_name);
-            });
-        }
-    }).render('#paypal-button-container'); // Replace '#paypal-button-container' with the ID of the div where you want the PayPal buttons to appear
+      if (data.isPaid) {
+        // Display the payment status
+        const paymentStatusElement = document.querySelector("#paymentStatus");
+        paymentStatusElement.textContent = `Payment Status: Paid`;
+      } else {
+        paypal.Buttons({
+          createOrder: function (data, actions) {
+              // This function sets up the details of the transaction, including the amount and line item details.
+              return actions.order.create({
+                  purchase_units: [{
+                      amount: {
+                          value: totalPrice.toFixed(2)
+                      }
+                  }]
+              });
+          },
+          onApprove: function (data, actions) {
+              // This function captures the funds from the transaction.
+              return actions.order.capture().then(function (details) {
+                  // This function shows a transaction success message to your buyer.
+                  alert('Transaction completed by ' + details.payer.name.given_name);
+  
+              });
+          }
+      }).render('#paypal-button-container');
+      }
     });
 }
