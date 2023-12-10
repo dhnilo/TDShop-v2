@@ -77,6 +77,10 @@
                                     var productPriceColumn = document.createElement('td');
                                     // Create a new column for the quantity
                                     var qtyColumn = document.createElement('td');
+                                    // Create a new column for the remove buttons
+                                    var removeColumn = document.createElement('td');
+                                    removeColumn.innerHTML = `<button class="remove-button" data-id="${cart[i].id}">Remove</button>`;
+                                    row.appendChild(removeColumn);
 
                                     // Set the product image
                                     if (productImg) {
@@ -121,7 +125,17 @@
                         // Append the columns to the row
                         row.appendChild(totalPriceColumn);
 
-                        // Append the row
+                        // Add this after the loop that generates the cart items
+                        document.querySelectorAll('.remove-button').forEach(function (button) {
+                            button.addEventListener('click', function (event) {
+                                var id = event.target.getAttribute('data-id');
+                                cart = cart.filter(function (item) {
+                                    return item.id !== id;
+                                });
+                                localStorage.setItem('cart', JSON.stringify(cart));
+                                location.reload();
+                            });
+                        });
                     </script>
                 </thead>
             </table>
